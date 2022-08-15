@@ -1,0 +1,98 @@
+# This .yaml cofinguration file contains all variables used by the snakemake pipeline
+# DO NOT CHANGE parameter names without changing it in Snakefile as well
+# On the other hand, some parameter values have to be inevitably modifed
+# **********************************************************************************************************************************
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ESSENTIAL PARAMETERS @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+### 0. General parameters  =========================================================================================================
+# 0.1. Project path and samples info
+runs_directory: "/home/s.gregoricchio/DATA_seb/Alex_endomitrium_project/HiC_tissues/analyses_SG/00_fastQ"
+output_directory: "/home/s.gregoricchio/DATA_seb/Alex_endomitrium_project/HiC_tissues/analyses_SG/"
+
+# 0.2 Input file extensions
+fastq_extension: ".fastq.gz"
+runs_suffix: ["_R1", "_R2"]
+
+# 0.3. Genome
+genome_fasta: "/home/s.gregoricchio/annotations/genomes/Hg19_UCSC/one_file_fasta/hg19.fa"
+genome_assembly_name: "hg19"
+
+# 0.4 Interaction matrix resolution
+matrix_resolution: [20, 40, 100]  # in kb, they must be multiples of the smallest, at least >1kb
+generate_bam: False # generating bam files will largely increase the computing time
+
+# 0.5 Experimental design
+restriction_enzyme: "DpnII"
+
+
+#*** [OPTIONAL ANALYSES] ***
+# 0.6 Group analyses
+perform_grouped_analyses: true
+sample_metadata: "/home/s.gregoricchio/DATA_seb/Alex_endomitrium_project/HiC_tissues/analyses_SG/samples_info_Alex.txt"
+
+# 0.7 Loop detection (10kb resolution suggested)
+detect_loops: true
+
+# 0.8 Compartments detection (>=100kb resolution suggested)
+detect_compartments: true
+dcHiC_repository_folder: "/home/s.gregoricchio/dcHiC/"
+minimal_resolution_compartments: 100
+character_subsitution_dashes_and_points_sample_name: ""
+chr_filtering_string: "hap|gl|random|NC|hs|Y|M|X|mt"
+dcHiC_chr_threads: 4
+dcHiC_PCA_threads: 4
+dcHiC_analyses_type: "cis"
+
+#--cthread=CTHREAD
+#                Number of threads to be used for parallel chromosome processing per sample Can be used using cis/trans section
+#                [default 1]
+#
+#
+#        --pthread=PTHREAD
+#                Number of threads to be used for pca calculation per chromosome per sample Can be used using cis/trans section
+#                [default 1]
+
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+### 1. FastQC  ---------------------------------------------------------------------------------------------------------------------
+fastQC_threads: 2
+
+
+### 2. Alignment and BAM generation parameters  ------------------------------------------------------------------------------------
+bwa_threads: 12
+mapQ_cutoff: 15
+SAMtools_threads: 8
+
+
+### 3. HiC explorer build matrix parameters  ---------------------------------------------------------------------------------------
+hicBuildMatrix_threads: 8
+min_distance: 300
+max_distance: 1000  # == maxLibraryInsertSize
+
+
+### 4. Parameters for the samples'correlation matrices  ----------------------------------------------------------------------------
+heatmap_color: 'RdBu'  # https://matplotlib.org/2.0.2/examples/color/colormaps_reference.html
+correlation_method: 'pearson'  # Possible choices: pearson, spearman
+
+
+### 5. HiC explorer normalization parameters (hicNormalize tool)  ------------------------------------------------------------------
+normalization_method: "smallest"  # Possible choices: norm_range, smallest, multiplicative
+
+
+### 6. Matrices correction (hicCorrectMatrix parameters)  --------------------------------------------------------------------------
+correction_method: "ICE"
+
+
+### 7. TADs calling (hicFindTADs parameters)  --------------------------------------------------------------------------------------
+hicFindTADs_threads: 10
+extra_findTAD_parameters: '--thresholdComparisons 0.01'
+
+
+### 8. Loop detection (hicDetectLoops parameters)
+hicDetectLoops_threads: 10
+maxLoopDistance: 2000000 #bp
+loop_windowSize: 10 #kb
+loop_peakWidth: 6 #kb
+loop_pValuePreselection: 0.05
+loop_pValue: 0.05
