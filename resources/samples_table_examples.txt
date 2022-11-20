@@ -1,7 +1,0 @@
-sample	group
-Sample_A	Tumor
-Sample_B	Normal
-Sample_C	Normal
-Sample_D	Tumor
-Sample_E	Normal
-Sample_F	Tumor
