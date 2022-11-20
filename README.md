@@ -6,13 +6,13 @@
 ![visits](https://badges.pufler.dev/visits/sebastian-gregoricchio/snHiC)
 ![downloads](https://img.shields.io/github/downloads/sebastian-gregoricchio/snHiC/total.svg)--->
 
-<p align="justify">
+<div text-align: justify">
 
 # snHiC [<img src="https://raw.githubusercontent.com/sebastian-gregoricchio/snHiC/main/resources/snHiC_logo.svg" align="right" height = 150/>](https://sebastian-gregoricchio.github.io/snHiC)
 ## Introduction
 `snHiC` is a snakemake based end-to-end pipeline to analyze Hi-C data. The input files required to run the pipeline are Paired-End fastq files. The pipeline performs data quality control, normalization and correction. It also includes the possibility to perform grouped analyses (e.g, merging of replicates) besides TAD calling, loops detection and differential compartment analyses. Notability, the latter is performed using `dcHiC`, a recently published method ([A. Chakraborty, *et al.*, Nat. Comm. 2022](https://www.nature.com/articles/s41467-022-34626-6)) that enables more precise and high-resolution differential compartment analyses.
 
-</p>
+</div>
 
 ### Citation
 If you use this package, please cite:
@@ -34,7 +34,7 @@ If you use this package, please cite:
 <br/><br/>
 
 ## Installation an dependencies
-<p align="justify">
+<div text-align: justify">
 To install the pipeline it is required to download this repository and the installation of a conda environment is strongly recommended.
 Follow the steps below for the installation:
 * place yourself in the directory where the repository should be downloaded by typing `cd </target/folder>`
@@ -43,24 +43,24 @@ Follow the steps below for the installation:
 `conda env create -f </target/folder>/snHiC/workflow/envs/snHiC_conda_env_stable.yaml`
 * activate the conda environment: `conda activate snHiC` (if the env is not activated the pipeline won't work properly)
 
-If you want to run the differential compartment analyses by `[dcHiC](https://www.nature.com/articles/s41467-022-34626-6)`, you need to install this tools first. Consider that all the pre-required packages are already included in the `snHiC` environment.
+If you want to run the differential compartment analyses by [`dcHiC`](https://www.nature.com/articles/s41467-022-34626-6), you need to install this tools first. Consider that all the pre-required packages are already included in the `snHiC` environment.
 * place yourself in the directory where the repository should be downloaded by typing `cd </target/folder>`
 * download the GitHub repository with `git clone https://github.com/ay-lab/dcHiC`, or click on *Code > Download ZIP* on the [GitHub page](https://github.com/ay-lab/dcHiC)
 * activate, if not already done, the `snHiC` conda environment: `conda activate snHiC` (if the env is not activated the dcHiC functions will be installed in the wrong R environment)
 * install the `dcHiC`'s functions available in the repository --> *dcHiC/packages/functionsdchic_1.0.tar.gz*:<br>
 `${CONDA_PREFIX}/bin/R CMD INSTALL </target/folder>/dcHiC/packages/functionsdchic_1.0.tar.gz`
-</p>
+</div>
 
 <br/><br/>
 
 ## How to run the pipeline
-<p align="justify">
+<div text-align: justify">
 The basic `snHiC` pipeline requires only two files:
 * `snHiC.snakefile`, containing all the rules that will be run;
 * `configuration.yaml` file, in which the user can define and customize all the parameters for the different pipeline steps. <br>
 
 Then, if grouped or differential compartment analyses are required by the user, a third file is required. This file will contain the sample names (without the read file suffix and extension, e.g *sample.A_R1.fastq.gz* --> *sample.A*) and the group to which they belong. Here follows an example (tab-delimited txt file):
-</p>
+</div>
 
 | *sample* | *group* |
 |:---------|:--------|
@@ -71,9 +71,9 @@ Then, if grouped or differential compartment analyses are required by the user, 
 | Sample_E | Normal  |
 | Sample_F | Tumor   |
 
-<p align="justify">
+<div text-align: justify">
 To partially avoid unexpected errors during the execution of the pipeline, a so called 'dry-run' is strongly recommended. Indeed, adding a `-n` at the end of the snakemake running command will allow snakemake to check that all links and file/parameters dependencies are satisfied before to run the "real" processes. This command will therefore help the debugging process.
-</p>
+</div>
 
 ```shell
 snakemake \
@@ -82,19 +82,19 @@ snakemake \
 --cores 12 \
 -n
 ```
-<p align="justify">
+<div text-align: justify">
 If no errors occur, the pipeline can be run with the same command line without the terminal `-n`:
-</p>
+</div>
 ```shell
 snakemake \
 -s </target/folder>/snHiC/workflow/snHiC.snakefile \
 --configfile </target/folder>/snHiC/config/snHiC_config.yaml \
 --cores 12
 ```
-<p align="justify">
+<div text-align: justify">
 Notice that the absence of errors does not mean that the pipeline will run without any issues; the "dry-run" is only checking whether all the resources are available. <br>
 Furthermore, there is the possibility to run the pipeline only partially. An example of usage could be if someone wants to have a look to the fast quality controls (fastQC and multiQC reports) before to perform the alignment. To do that, it is sufficient to run a dry-run (`-n` mode), then pick the name of the rule at which you want the pipeline to stop and lastly type the following command:
-</p>
+</div>
 
 ```shell
 snakemake \
@@ -107,7 +107,7 @@ snakemake \
 <br/><br/>
 
 ### Snakefile
-<p align="justify">
+<div text-align: justify">
 The snakefile are contained all the condition checks and rules (processing steps) that will be performed by the pipeline. In the following schematic mapping the main steps performed by the pipeline are depicted. <br>
 Briefly, first of all a quality control (fastQC) of the raw fastq data is performed. Then, bwa-mem is used to align the paired-end sequences, but separately, onto the genome of reference. The aligned reads are filtered and used to generate the Hi-C matrices at the lowest resolution using [HiCExplorer](https://hicexplorer.readthedocs.io/en/latest/index.html) ([J. Wolff *et. al*, Nuc. Acids Res. 2020](https://doi.org/10.1093/nar/gkaa220)). <br> If necessary, the matrices' bins are merge to generate higher resolution matrices. Further, if required by the user, matrices belonging to the same *group* are summed and processed in parallel to the "single-sample" ones. <br>
 These matrices are then normalized and corrected and used to generate quality control plots as well preform sample correlation analyses. <br>
@@ -115,19 +115,19 @@ Finally, TAD and Loops detection can be performed by [HiCExplorer](https://hicex
 
 More details on [parameters](#Configuration-file) and structure/meaning of the [results](#Results) can be found in the next paragraphs.
 
-</p>
+</div>
 
 ![snHiC workflow](https://sebastian-gregoricchio.github.io/snHiC/resources/snHiC_workflow.png)
 
 
 ### Configuration file
-<p align="justify">
+<div text-align: justify">
 The configuration file is a yaml-formatted file containing all the parameters that are passed to different steps of the pipelines such as the directory with the input files, reference genome, threads of the tools, etc. <br>
 The snHiC configuration file is divided in two sections:
 * *experiment-specific*, with al the parameters that most likely are changing from experiment to experiment;
 * *common*, with parameters that are quite stable independently of the experiments design. The latter should be changed only for very specific needs. <br>
 Hereafter, the meaning of the different parameters is described.
-</p>
+</div>
 
 <br/><br/>
 
