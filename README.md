@@ -128,7 +128,9 @@ Hereafter, the meaning of the different parameters is described.
 |*restriction_enzyme*| A string indicating the enzyme used to generate the HiC libraries. This parameter is used to identify the restriction sites on the genome. Possible choices are: 'DpnII', 'MboI', 'NlaIII', 'Csp6I', 'CviQI', 'HindIII', 'EcoRI', 'BamHI', 'BglII'. Other enzymes can be added in the pipeline by modifying the `restriction_table` at the beginning of the *snHiC.Snakefile*.|
 
 
+
 *Optional parameters*
+
 | **Parameter**   |   **Description**   |
 |------------:|:----------------|
 |*perform_grouped_analyses| A logical value (True/False) indicating whether grouped analyses should be performed. This function requires the parameter `sample_metadata`.|
