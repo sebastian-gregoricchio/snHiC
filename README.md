@@ -6,7 +6,7 @@
 ![visits](https://badges.pufler.dev/visits/sebastian-gregoricchio/snHiC)
 ![downloads](https://img.shields.io/github/downloads/sebastian-gregoricchio/snHiC/total.svg)--->
 
-<div text-align: justify">
+<div style="text-align: justify">
 
 # snHiC [<img src="https://raw.githubusercontent.com/sebastian-gregoricchio/snHiC/main/resources/snHiC_logo.svg" align="right" height = 150/>](https://sebastian-gregoricchio.github.io/snHiC)
 ## Introduction
@@ -34,11 +34,11 @@ If you use this package, please cite:
 <br/><br/>
 
 ## Installation an dependencies
-
+<div style="text-align: justify">
 To install the pipeline it is required to download this repository and the installation of a conda environment is strongly recommended.
 Follow the steps below for the installation:
 * place yourself in the directory where the repository should be downloaded by typing `cd </target/folder>`
-* download the GitHub repository with `git clone https://github.com/sebastian-gregoricchio/snakeATAC `, or click on *Code > Download ZIP* on the [GitHub page](https://github.com/sebastian-gregoricchio/snakeATAC)
+* download the GitHub repository with `git clone https://github.com/sebastian-gregoricchio/snakeATAC`, or click on *Code > Download ZIP* on the [GitHub page](https://github.com/sebastian-gregoricchio/snakeATAC)
 * install the conda environment from the .yaml environment file contained in the repository:<br>
 `conda env create -f </target/folder>/snHiC/workflow/envs/snHiC_conda_env_stable.yaml`
 * activate the conda environment: `conda activate snHiC` (if the env is not activated the pipeline won't work properly)
@@ -49,12 +49,12 @@ If you want to run the differential compartment analyses by [`dcHiC`](https://ww
 * activate, if not already done, the `snHiC` conda environment: `conda activate snHiC` (if the env is not activated the dcHiC functions will be installed in the wrong R environment)
 * install the `dcHiC`'s functions available in the repository --> *dcHiC/packages/functionsdchic_1.0.tar.gz*:<br>
 `${CONDA_PREFIX}/bin/R CMD INSTALL </target/folder>/dcHiC/packages/functionsdchic_1.0.tar.gz`
-
+</div>
 
 <br/><br/>
 
 ## How to run the pipeline
-<div text-align: justify">
+<div style="text-align: justify">
 The basic `snHiC` pipeline requires only two files:
 * `snHiC.snakefile`, containing all the rules that will be run;
 * `configuration.yaml` file, in which the user can define and customize all the parameters for the different pipeline steps. <br>
@@ -71,7 +71,7 @@ Then, if grouped or differential compartment analyses are required by the user, 
 | Sample_E | Normal  |
 | Sample_F | Tumor   |
 
-<div text-align: justify">
+<div style="text-align: justify">
 To partially avoid unexpected errors during the execution of the pipeline, a so called 'dry-run' is strongly recommended. Indeed, adding a `-n` at the end of the snakemake running command will allow snakemake to check that all links and file/parameters dependencies are satisfied before to run the "real" processes. This command will therefore help the debugging process.
 </div>
 
@@ -82,7 +82,7 @@ snakemake \
 --cores 12 \
 -n
 ```
-<div text-align: justify">
+<div style="text-align: justify">
 If no errors occur, the pipeline can be run with the same command line without the terminal `-n`:
 </div>
 ```shell
@@ -91,7 +91,7 @@ snakemake \
 --configfile </target/folder>/snHiC/config/snHiC_config.yaml \
 --cores 12
 ```
-<div text-align: justify">
+<div style="text-align: justify">
 Notice that the absence of errors does not mean that the pipeline will run without any issues; the "dry-run" is only checking whether all the resources are available. <br>
 Furthermore, there is the possibility to run the pipeline only partially. An example of usage could be if someone wants to have a look to the fast quality controls (fastQC and multiQC reports) before to perform the alignment. To do that, it is sufficient to run a dry-run (`-n` mode), then pick the name of the rule at which you want the pipeline to stop and lastly type the following command:
 </div>
@@ -107,7 +107,7 @@ snakemake \
 <br/><br/>
 
 ### Snakefile
-<div text-align: justify">
+<div style="text-align: justify">
 The snakefile are contained all the condition checks and rules (processing steps) that will be performed by the pipeline. In the following schematic mapping the main steps performed by the pipeline are depicted. <br>
 Briefly, first of all a quality control (fastQC) of the raw fastq data is performed. Then, bwa-mem is used to align the paired-end sequences, but separately, onto the genome of reference. The aligned reads are filtered and used to generate the Hi-C matrices at the lowest resolution using [HiCExplorer](https://hicexplorer.readthedocs.io/en/latest/index.html) ([J. Wolff *et. al*, Nuc. Acids Res. 2020](https://doi.org/10.1093/nar/gkaa220)). <br> If necessary, the matrices' bins are merge to generate higher resolution matrices. Further, if required by the user, matrices belonging to the same *group* are summed and processed in parallel to the "single-sample" ones. <br>
 These matrices are then normalized and corrected and used to generate quality control plots as well preform sample correlation analyses. <br>
@@ -121,7 +121,7 @@ More details on [parameters](#Configuration-file) and structure/meaning of the [
 
 
 ### Configuration file
-<div text-align: justify">
+<div style="text-align: justify">
 The configuration file is a yaml-formatted file containing all the parameters that are passed to different steps of the pipelines such as the directory with the input files, reference genome, threads of the tools, etc. <br>
 The snHiC configuration file is divided in two sections:
 * *experiment-specific*, with al the parameters that most likely are changing from experiment to experiment;
@@ -187,3 +187,225 @@ Hereafter, the meaning of the different parameters is described.
 |*loop_peakWidth*| Default: `6`kb. The width of the peak region in bins. The square around the peak will include (2 * peakWidth)^2 bins. For more info see [hicDetectLoops](https://hicexplorer.readthedocs.io/en/latest/content/tools/hicDetectLoops.html). |
 |*loop_pValuePreselection*| Default: `0.05`. Only candidates with p-values less the given threshold will be considered as candidates. For each genomic distance a negative binomial distribution is fitted and for each pixel a p-value given by the cumulative density function is given. This does NOT influence the p-value for the neighborhood testing. For more info see [hicDetectLoops](https://hicexplorer.readthedocs.io/en/latest/content/tools/hicDetectLoops.html). |
 |*loop_pValue*| Default: `0.05`. Rejection level for Anderson-Darling or Wilcoxon-rank sum test for H0. H0 is peak region and background have the same distribution. For more info see [hicDetectLoops](https://hicexplorer.readthedocs.io/en/latest/content/tools/hicDetectLoops.html). |
+
+
+
+<br/><br/>
+
+## Results
+The structure of the *output_folder* is the following:
+
+<pre>
+<b><em>output_folder</em></b>
+├── <b>01_fastQC_raw</b>
+│   ├── <em>sample</em>_fastqc.html
+│   ├── <em>sample</em>_fastqc.zip
+│   └── <b>multiQC_raw</b>
+│       ├── <b>multiQC_report_fastqRaw_data</b>
+│       │   ├── multiqc_citations.txt
+│       │   ├── multiqc_data.json
+│       │   ├── multiqc_fastqc.txt
+│       │   ├── multiqc_general_stats.txt
+│       │   ├── multiqc.log
+│       │   └── multiqc_sources.txt
+│       └── multiQC_report_fastqRaw.html
+|
+├── <b>02_BAM</b>
+│   ├── <em>sample</em>_mapQ20_sorted_woMT.bam
+│   ├── <em>sample</em>_mapQ20_sorted_woMT.bam.bai
+│   └── <b>flagstat</b>
+│       ├── <em>sample</em>_flagstat_filtered_bam_woMT.txt
+│       └── <em>sample</em>_flagstat_UNfiltered_bam.txt
+|
+├── <b>03_BAM_dedup</b> (or 03_BAM_mdup, if duplicates are not removed)
+│   ├── <em>sample</em>_mapQ20_woMT_dedup_shifted_sorted.bam
+│   ├── <em>sample</em>_mapQ20_woMT_dedup_shifted_sorted.bam.bai
+│   ├── <b>fastQC</b>
+│   │   ├── <em>sample</em>_sorted_woMT_dedup_fastqc.html
+│   │   ├── <em>sample</em>_sorted_woMT_dedup_fastqc.zip
+│   │   └── <b>multiQC_dedup_bams</b>
+│   │       ├── <b>multiQC_report_BAMs_dedup_data</b>
+│   │       │   ├── multiqc_citations.txt
+│   │       │   ├── multiqc_data.json
+│   │       │   ├── multiqc_fastqc.txt
+│   │       │   ├── multiqc_general_stats.txt
+│   │       │   ├── multiqc.log
+│   │       │   └── multiqc_sources.txt
+│   │       └── multiQC_report_BAMs_dedup.html
+│   ├── <b>flagstat</b>
+│   │   ├── <em>sample</em>_flagstat_filtered_bam_woMT_dedup.txt
+│   │   └── <em>sample</em>_flagstat_woMT_dedup_shifted_sorted.txt
+│   ├── <b>fragmentSizeDistribution_plots</b>
+|   |   ├── ALL.samples_fragment_size_distribution.pdf
+│   │   └── <em>sample</em>_fragment_size_distribution.pdf
+│   ├── <b>metrics</b>
+│   │   └── <em>sample</em>_metrics_woMT_dedup_bam.txt
+│   └── <b>unshifted_bams</b>
+│       ├── <em>sample</em>_mapQ20_sorted_woMT_dedup.bam
+│       └── <em>sample</em>_mapQ20_sorted_woMT_dedup.bai
+|
+├── <b>04_Normalization</b>
+│   ├── <b>HMCan_output</b> ### --> only if HMCan correction is performed ###
+│   └── <b>normalized_bigWigs</b>
+│       └── <em>sample</em>_mapQ20_woMT_dedup_shifted_normalized_bs5.bw
+│
+├── <b>05_Peaks_MACS3</b> ### --> if HMCan correction is not performed ###
+│   ├── <em>sample</em>_mapQ20_woMT_dedup_shifted_FDR0.01_peaks.narrowPeak
+│   ├── <em>sample</em>_mapQ20_woMT_dedup_shifted_FDR0.01_peaks.xls
+│   ├── <em>sample</em>_mapQ20_woMT_dedup_shifted_FDR0.01_summits.bed
+│   └── <b>log</b>
+│       └── <em>sample</em>_mapQ20_woMT_dedup_shifted_FDR0.01.log
+|
+├── <b>06_Overall_quality_and_info</b>
+|   ├── Lorenz_curve_deeptools.plotFingreprint_allSamples.pdf
+|   ├── <b>Counts</b>
+|   │   ├── counts_summary.txt
+|   │   └── <b>subread_featureCounts_output</b>
+|   │       └── <b>sample</b>
+|   │           ├── <em>sample</em>.readCountInPeaks
+|   │           ├── <em>sample</em>.readCountInPeaks.log
+|   │           └── <em>sample</em>.readCountInPeaks.summary
+|   └── <b>Sample_comparisons</b>
+|       ├── multiBigWigSummary_matrix_allSamples.npz
+|       ├── PCA_on_BigWigs_wholeGenome.pdf
+|       ├── <b>Peak_comparison</b>
+|       │   ├── all_samples_peaks_concatenation_collapsed_sorted.bed
+|       │   ├── peaks_score_matrix_all_samples_MACS3.npz
+|       │   └── peaks_score_matrix_all_samples_table_MACS3.tsv
+|       |   └── <b>Heatmaps</b>
+|       |       ├── Heatmap_on_log1p.rawScores_for_MACS3.peaks_union_population.pdf
+|       │       └── Heatmap_on_zScores_for_MACS3.peaks_union_population.pdf
+|       └── <b>Sample_correlation</b>
+|           ├── Correlation_heatmap_on_BigWigs_wholeGenome_pearsonMethod.pdf
+|           ├── Correlation_heatmap_on_BigWigs_wholeGenome_spearmanMethod.pdf
+|           ├── Correlation_scatterplot_on_BigWigs_wholeGenome_pearsonMethod.pdf
+|           └── Correlation_scatterplot_on_BigWigs_wholeGenome_spearmanMethod.pdf
+|
+└── <b>07_Variant_calling</b>
+    ├── all_samples_peaks_concatenation_collapsed_sorted.bed
+    ├── all.samples_dedup_gatk-indel_filtered.DP20.QUAL20
+    ├── all.samples_dedup_gatk-snp_filtered.DP20.QUAL20
+    ├── all.samples_INDEL_counts_plot.pdf
+    ├── all.samples_SNP_counts_plot.pdf
+    └── <b><em>sample</em></b>
+        ├── <em>sample</em>_dedup_gatk-indel_filtered.DP20.QUAL20.txt
+        ├── <em>sample</em>_dedup_gatk-indel_filtered.DP20.QUAL20.vcf.gz
+        ├── <em>sample</em>_dedup_gatk-indel_filtered.DP20.QUAL20.vcf.gz.tbi
+        ├── <em>sample</em>_dedup_gatk-snp_filtered.DP20.QUAL20.txt
+        ├── <em>sample</em>_dedup_gatk-snp_filtered.DP20.QUAL20.vcf.gz
+        ├── <em>sample</em>_dedup_gatk-snp_filtered.DP20.QUAL20.vcf.gz.tbi
+        ├── <em>sample</em>_dedup_gatk.vcf.gz
+        ├── <em>sample</em>_dedup_gatk.vcf.gz.tbi
+        ├── <em>sample</em>_mapQ20_sorted_woMT_dedup_bsqr.bai
+        ├── <em>sample</em>_mapQ20_sorted_woMT_dedup_bsqr.bam
+        ├── <em>sample</em>_mapQ20_sorted_woMT_dedup_bsqr.table
+        └── <em>sample</em>_plotCoverage.pdf
+</pre>
+
+<br/><br/>
+
+### 01_fastQC_raw
+This folder contains a the fastq quality control (fastQC) reports for each fastq file and a summary report of multiQC.
+
+<br/><br/>
+
+### 02_BAM
+When the reads are aligned onto the reference genome by bwa, the resulting SAM files are filtered for mapping quality (MAPQ) and the mithocondrial (suffix: woMT) reads are removed before sorting. Flagstat metrics is generated for each file and stored in the homonym folder.
+
+<br/><br/>
+
+### 03_BAM_dedup / 03_BAM_mdup
+PICARD is used to remove (suffix: dedup) or mark (suffix: mdup) duplicates in the BAM files. The resulting BAMs are stored in the subfolder "unshifted_bams", while the PICARD metrics is stored in the "metrics" folder. A fastq quality control (fastQC) and relative multiQC report is performed on the unshifted bams. <br>
+Then, the Tn5 nick reparation bias is corrected by shifting of the reads using [deeptools alignmentSieve](https://deeptools.readthedocs.io/en/develop/content/tools/alignmentSieve.html) (suffix: shifted). Notice that, after shifting, the read sequence information is lost in the shifted BAMs. <br>
+Flagstat metrics is generated for each unshifted and shifted bam file and stored in the "falgstat" folder.
+
+Furthermore, in the "fragmentSizeDistribution_plots" folder the distribution of the fragment sizes for each sample (shifted BAMs) and a file collecting all the plots in a single file. Here after an example of a good (left) and a bad (right) fragment size distribution.
+
+![fragment size distribution examples](https://sebastian-gregoricchio.github.io/snakeATAC/resources/fragmentSize_distribution_examples.svg)
+
+An optimal fragment size distribution should be included within a range of 50-800bp, with a periodicity of ~150bp (corrsponding to mono-, di-, tri-, ... nucleosomes) with a lower intensity for larger fragments.
+
+<br/><br/>
+
+
+### 04_Normalization
+Shifted signal is normalized on sequencing depth library upon copy number variation correction by [HMCan](https://academic.oup.com/bioinformatics/article/29/23/2979/246862?login=false) (if requested by the user). The bin size used is indicated in the resulting bigWig file name (suffix: bs#). <br>
+However, these bigWig files can be normalized more precisely normalized in the case that you dispone of a corresponding RNA-seq data set using [CHIPIN](https://doi.org/10.1186/s12859-021-04320-3) (L. Polit *et.al*, BMC Bioinformatics, 2021). Examples of CHIPIN usage can be found at [S. Gregoricchio *et al.*, Nucleic Acids Research (2022)](https://doi.org/10.1093/nar/gkac613).
+
+<br/><br/>
+
+### 05_Peaks_MACS3 (when HMCan correction is not performed)
+Peaks and summits (if required by the user) are called by MACS3 on shifted BAMs. The FDR (False Discovery Ratio) threshold used is indicated in the file name (suffix: FDR#). When HMCan correction is active, the peaks are called by HMCan itself.
+
+<br/><br/>
+
+### 06_Overall_quality_and_info
+This folder contains multiple quality controls, feature counts and sample correlation plots:
+
+*  `Lorenz_curve_deeptools.plotFingreprint_allSamples.pdf` is a plot showing the enrichment of the signal allover the genome. Indeed, if a sample does not show any enrichment the reads will equally distributed over the genome resulting in a diagonal line in the plot (left panel). When instead the signal is specific for the feature sought (e.g., open chromatin) it will be enriched only at specific location and the curve will be closer to the bottom-right corner of the plot (right panel).
+
+![lorenz curve examples](https://sebastian-gregoricchio.github.io/snakeATAC/resources/lorenz_curve_examples.svg)
+
+<br/><br/>
+
+* `Counts`: contains the results of featureCounts (from subread) with the counts of reads and other statistics on called peaks for each sample. It is availble also tab-separated file containing a summary of the main features counts for each sample: <br><br>
+**Summary counts table description**
+
+| **Column**   |   **Description**   |
+|------------:|:----------------|
+| *Sample* | Sample name |
+| *Reads_R1* | Number of reads in read.1 fastq file. |
+| *Reads_R2* | Number of reads in read.2 fastq file. |
+| *Reads_total* | Total number of reads (read.1 + read.2). |
+| *unfiltered_BAM* | Total number of reads in the bam file after filtering by map quality (MAPQ). |
+| *Percentage_MT* | Approximative percentage of reads represented by the mithocondrial DNA. Ideally lower than 10-20%. |
+| *dedup_BAM* | Total number of reads left after BAM reads deduplication. |
+| *duplicated_reads* | Number of duplicated reads. If the duplicates are not remove the value will be 0. |
+| *shifted_BAM* | Number of reads in the shifted BAMs. |
+| *loss_post_shifting* | Number of reads lost upon BAM shifting. Consider that reads falling in blacklisted regions are removed. |
+| *n.peaks* | Total number of peaks called. |
+| *FRiP.perc* | Frequency Reads in Peaks percentage, corresponds to the number of reads falling in peak regions divide by the total number of reads and multiplied by 100. |
+| *FRiP.quality* | A label ("good" or "bad") to indicate whether the FRiP score is good or not for a given sample. The threshold can be changed in the config file by the user, by the default 20 (as suggested by the [ENCODE guidelines](https://www.encodeproject.org/atac-seq/)). |
+
+<br/><br/>
+
+* `Sample_comparisons`: the plots in this folder help the user to understand the variability of the samples.
+  + `multiBigWigSummary_matrix_allSamples.npz`: result of deeptools multiBigWigSummary used to plot the PCA and correlation plots;
+  + `PCA_on_BigWigs_wholeGenome.pdf`: Principal Component Analyses results of the signal allover the genome;
+  + `Peak_comparison`:
+    - `all_samples_peaks_concatenation_collapsed_sorted.bed`: the peaks called in all samples are merged and collapsed in this bed file;
+    - `peaks_score_matrix_all_samples_MACS3.npz`: a matrix containing the average score at each peak (previous bed file) for each samples is generated;
+    - `peaks_score_matrix_all_samples_table_MACS3.tsv`: same matrix as before, but in tab-separated format.
+    - `Heatmaps`: the matrix generated on all peaks is used to cluster the samples and two heatmaps are plotted: one on the log1p of the raw scores, and one on the z-score (on rows)
+  + `Sample_correlation`: scatter and heatmap correlation plots are generated based on the signal over the whole genome. Both Pearson and Spearman methods are used.
+
+<br/><br/>
+
+
+
+
+### 07_Variant_calling
+If required by the user, the pipeline can call altered single-nucleotide polymorphism (SNP) and insertion/deletions (InDel). [PICARD CreateSequenceDictionary](https://gatk.broadinstitute.org/hc/en-us/articles/360037068312-CreateSequenceDictionary-Picard-) is used to create a genome dictionary in order to perform a Base Quality Score Recalibration ([BQSR](https://gatk.broadinstitute.org/hc/en-us/articles/360035890531-Base-Quality-Score-Recalibration-BQSR-)) of unshifted BAM files (after filling of the ReadGroups by [PICARD AddOrReplaceReadGroups](https://gatk.broadinstitute.org/hc/en-us/articles/360037226472-AddOrReplaceReadGroups-Picard-)) by [GATK BaseRecalibrator](https://gatk.broadinstitute.org/hc/en-us/articles/360036898312-BaseRecalibrator) and [GATK ApplyBQSR](https://gatk.broadinstitute.org/hc/en-us/articles/360037055712-ApplyBQSR). <br>
+The recalibrated BAMs are used by [GATK HaplotypeCaller](https://gatk.broadinstitute.org/hc/en-us/articles/360037225632-HaplotypeCaller) to generate a [GVCF](https://gatk.broadinstitute.org/hc/en-us/articles/360035531812-GVCF-Genomic-Variant-Call-Format) (Genomic Variant Call Format) file containing the genomic variants individuated at the regions included in the file resulting by the merge of all the called peaks. This GVCF file is then recalibrated by [GATK GenotypeGVCFs](https://gatk.broadinstitute.org/hc/en-us/articles/360037435831-GenotypeGVCFs) resulting in a VCF file. <br>
+The VCF recalibrated file is selected by [GATK SelectVariants](https://gatk.broadinstitute.org/hc/en-us/articles/360037055952-SelectVariants) to obtain two separate VCF files corresponding to SNPs and InDels. <br>
+Ultimately, these VCF are hard-filtered for sequencing depth (DP) and quality (QUAL) by [SnpSift Filter](https://pcingola.github.io/SnpEff/ss_filter/) and then exported in a txt table by [SnpSift Extract Fields](https://pcingola.github.io/SnpEff/ss_extractfields/). Notably, the genotype '0|0' (both alleles not mutated) is filtered out from the .txt table. <br>
+The SNP, or InDel, .txt tables from all samples are merged in a unique one with the addition of a column corresponding to the sample name. These tables are used to generate a plot of the counts of variants found in each sample.
+Further, a coverage plot at the merged peaks is generated by [deeptools plotCoverage](https://deeptools.readthedocs.io/en/develop/content/tools/plotCoverage.html).
+
+
+<br/><br/>
+
+-----------------
+## Package history and releases
+A list of all releases and respective description of changes applied could be found [here](https://sebastian-gregoricchio.github.io/snakeATAC/NEWS).
+
+## Contact
+For any suggestion, bug fixing, commentary please report it in the [issues](https://github.com/sebastian-gregoricchio/snakeATAC/issues)/[request](https://github.com/sebastian-gregoricchio/snakeATAC/pulls) tab of this repository.
+
+## License
+This repository is under a [GNU General Public License (version 3)](https://sebastian-gregoricchio.github.io/Rseb/LICENSE.md/LICENSE).
+
+<br/>
+
+#### Contributors
+[![contributors](https://badges.pufler.dev/contributors/sebastian-gregoricchio/Rseb?size=50&padding=5&bots=true)](https://sebastian-gregoricchio.github.io/)
