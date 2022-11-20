@@ -133,7 +133,7 @@ Hereafter, the meaning of the different parameters is described.
 
 | **Parameter**   |   **Description**   |
 |------------:|:----------------|
-|*perform_grouped_analyses| A logical value (True/False) indicating whether grouped analyses should be performed. This function requires the parameter `sample_metadata`.|
+|*perform_grouped_analyses*| A logical value (True/False) indicating whether grouped analyses should be performed. This function requires the parameter `sample_metadata`.|
 |*sample_metadata*| The path to a tab-delimited txt file containing two columns: *sample* and the name of the *group* at which it belongs. This sample names must be indicated without the read file suffix and extension (e.g *sample.A_R1.fastq.gz* --> *sample.A*). |
 |*detect_loops*| A logical value (True/False) indicating whether loops detection should be performed by [HiCExplorer](https://hicexplorer.readthedocs.io/en/latest/content/tools/hicDetectLoops.html). |
 |*detect_compartments*| A logical value (True/False) indicating whether differential compartment analyses should be performed by [dcHiC](https://www.nature.com/articles/s41467-022-34626-6). This function requires the parameter `sample_metadata`. |
