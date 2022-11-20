@@ -123,7 +123,7 @@ Hereafter, the meaning of the different parameters is described.
 |*perform_grouped_analyses| A logical value (True/False) indicating whether grouped analyses should be performed. This function requires the parameter `sample_metadata`.|
 |*sample_metadata*| |
 |*detect_loops*| A logical value (True/False) indicating whether loops detection should be performed by [HiCExplorer](https://hicexplorer.readthedocs.io/en/latest/content/tools/hicDetectLoops.html). |
-|-----------------|--------------------|
+|-------------------------------------|
 |*detect_compartments*| A logical value (True/False) indicating whether differential compartment analyses should be performed by [dcHiC](https://www.nature.com/articles/s41467-022-34626-6). This function requires the parameter `sample_metadata`. |
 |dcHiC_repository_folder| "<target/folder>/dcHiC/" |
 minimal_resolution_compartments: 5
