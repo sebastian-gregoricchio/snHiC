@@ -1,7 +1,7 @@
 sample	group
-T1400461A1	Tumor
-T1406219C2	Normal
-T1500825A2	Normal
-T1508841A1	Tumor
-T1508841A2	Normal
-T1903089II1	Tumor
+Sample_A	Tumor
+Sample_B	Normal
+Sample_C	Normal
+Sample_D	Tumor
+Sample_E	Normal
+Sample_F	Tumor
