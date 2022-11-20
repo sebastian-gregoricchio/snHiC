@@ -34,7 +34,7 @@ If you use this package, please cite:
 <br/><br/>
 
 ## Installation an dependencies
-<div text-align: justify">
+
 To install the pipeline it is required to download this repository and the installation of a conda environment is strongly recommended.
 Follow the steps below for the installation:
 * place yourself in the directory where the repository should be downloaded by typing `cd </target/folder>`
@@ -49,7 +49,7 @@ If you want to run the differential compartment analyses by [`dcHiC`](https://ww
 * activate, if not already done, the `snHiC` conda environment: `conda activate snHiC` (if the env is not activated the dcHiC functions will be installed in the wrong R environment)
 * install the `dcHiC`'s functions available in the repository --> *dcHiC/packages/functionsdchic_1.0.tar.gz*:<br>
 `${CONDA_PREFIX}/bin/R CMD INSTALL </target/folder>/dcHiC/packages/functionsdchic_1.0.tar.gz`
-</div>
+
 
 <br/><br/>
 
