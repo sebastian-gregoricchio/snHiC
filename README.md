@@ -6,12 +6,18 @@
 ![visits](https://badges.pufler.dev/visits/sebastian-gregoricchio/snHiC)
 ![downloads](https://img.shields.io/github/downloads/sebastian-gregoricchio/snHiC/total.svg)--->
 
+<p align="justify">
+
 # snHiC [<img src="https://raw.githubusercontent.com/sebastian-gregoricchio/snHiC/main/resources/snHiC_logo.svg" align="right" height = 150/>](https://sebastian-gregoricchio.github.io/snHiC)
 ## Introduction
 `snHiC` is a snakemake based end-to-end pipeline to analyze Hi-C data. The input files required to run the pipeline are Paired-End fastq files. The pipeline performs data quality control, normalization and correction. It also includes the possibility to perform grouped analyses (e.g, merging of replicates) besides TAD calling, loops detection and differential compartment analyses. Notability, the latter is performed using `dcHiC`, a recently published method ([A. Chakraborty, *et al.*, Nat. Comm. 2022](https://www.nature.com/articles/s41467-022-34626-6)) that enables more precise and high-resolution differential compartment analyses.
 
+</p>
+
 ### Citation
 If you use this package, please cite:
+
+
 
 <div class="warning" style='padding:2.5%; background-color:#ffffee; color:#787878; margin-left:5%; margin-right:5%; border-radius:15px;'>
 <span>
@@ -28,6 +34,7 @@ If you use this package, please cite:
 <br/><br/>
 
 ## Installation an dependencies
+<p align="justify">
 To install the pipeline it is required to download this repository and the installation of a conda environment is strongly recommended.
 Follow the steps below for the installation:
 * place yourself in the directory where the repository should be downloaded by typing `cd </target/folder>`
@@ -42,15 +49,18 @@ If you want to run the differential compartment analyses by `[dcHiC](https://www
 * activate, if not already done, the `snHiC` conda environment: `conda activate snHiC` (if the env is not activated the dcHiC functions will be installed in the wrong R environment)
 * install the `dcHiC`'s functions available in the repository --> *dcHiC/packages/functionsdchic_1.0.tar.gz*:<br>
 `${CONDA_PREFIX}/bin/R CMD INSTALL </target/folder>/dcHiC/packages/functionsdchic_1.0.tar.gz`
+</p>
 
 <br/><br/>
 
 ## How to run the pipeline
+<p align="justify">
 The basic `snHiC` pipeline requires only two files:
 * `snHiC.snakefile`, containing all the rules that will be run;
 * `configuration.yaml` file, in which the user can define and customize all the parameters for the different pipeline steps. <br>
 
 Then, if grouped or differential compartment analyses are required by the user, a third file is required. This file will contain the sample names (without the read file suffix and extension, e.g *sample.A_R1.fastq.gz* --> *sample.A*) and the group to which they belong. Here follows an example (tab-delimited txt file):
+</p>
 
 | *sample* | *group* |
 |:---------|:--------|
@@ -61,8 +71,9 @@ Then, if grouped or differential compartment analyses are required by the user, 
 | Sample_E | Normal  |
 | Sample_F | Tumor   |
 
-
+<p align="justify">
 To partially avoid unexpected errors during the execution of the pipeline, a so called 'dry-run' is strongly recommended. Indeed, adding a `-n` at the end of the snakemake running command will allow snakemake to check that all links and file/parameters dependencies are satisfied before to run the "real" processes. This command will therefore help the debugging process.
+</p>
 
 ```shell
 snakemake \
@@ -71,17 +82,19 @@ snakemake \
 --cores 12 \
 -n
 ```
-
+<p align="justify">
 If no errors occur, the pipeline can be run with the same command line without the terminal `-n`:
+</p>
 ```shell
 snakemake \
 -s </target/folder>/snHiC/workflow/snHiC.snakefile \
 --configfile </target/folder>/snHiC/config/snHiC_config.yaml \
 --cores 12
 ```
-
+<p align="justify">
 Notice that the absence of errors does not mean that the pipeline will run without any issues; the "dry-run" is only checking whether all the resources are available. <br>
 Furthermore, there is the possibility to run the pipeline only partially. An example of usage could be if someone wants to have a look to the fast quality controls (fastQC and multiQC reports) before to perform the alignment. To do that, it is sufficient to run a dry-run (`-n` mode), then pick the name of the rule at which you want the pipeline to stop and lastly type the following command:
+</p>
 
 ```shell
 snakemake \
@@ -94,6 +107,7 @@ snakemake \
 <br/><br/>
 
 ### Snakefile
+<p align="justify">
 The snakefile are contained all the condition checks and rules (processing steps) that will be performed by the pipeline. In the following schematic mapping the main steps performed by the pipeline are depicted. <br>
 Briefly, first of all a quality control (fastQC) of the raw fastq data is performed. Then, bwa-mem is used to align the paired-end sequences, but separately, onto the genome of reference. The aligned reads are filtered and used to generate the Hi-C matrices at the lowest resolution using [HiCExplorer](https://hicexplorer.readthedocs.io/en/latest/index.html) ([J. Wolff *et. al*, Nuc. Acids Res. 2020](https://doi.org/10.1093/nar/gkaa220)). <br> If necessary, the matrices' bins are merge to generate higher resolution matrices. Further, if required by the user, matrices belonging to the same *group* are summed and processed in parallel to the "single-sample" ones. <br>
 These matrices are then normalized and corrected and used to generate quality control plots as well preform sample correlation analyses. <br>
@@ -101,13 +115,19 @@ Finally, TAD and Loops detection can be performed by [HiCExplorer](https://hicex
 
 More details on [parameters](#Configuration-file) and structure/meaning of the [results](#Results) can be found in the next paragraphs.
 
+</p>
+
 ![snHiC workflow](https://sebastian-gregoricchio.github.io/snHiC/resources/snHiC_workflow.png)
 
 
 ### Configuration file
+<p align="justify">
 The configuration file is a yaml-formatted file containing all the parameters that are passed to different steps of the pipelines such as the directory with the input files, reference genome, threads of the tools, etc. <br>
-The snHiC configuration file is divided in two sections: a) *'experiment-specific'*, with al the parameters that most likely are changing from experiment to experiment; b) *'common'*, with parameters that are quite stable independently of the experiments design. The latter should be changed only for very specific needs. <br>
+The snHiC configuration file is divided in two sections:
+* *experiment-specific*, with al the parameters that most likely are changing from experiment to experiment;
+* *common*, with parameters that are quite stable independently of the experiments design. The latter should be changed only for very specific needs. <br>
 Hereafter, the meaning of the different parameters is described.
+</p>
 
 <br/><br/>
 
@@ -155,7 +175,7 @@ Hereafter, the meaning of the different parameters is described.
 |*bwa_threads*| Default: `12`. Number of CPUs to use for the mapping performed by [bwa-mem](http://bio-bwa.sourceforge.net/bwa.shtml). |
 |*mapQ_cutoff*| Default: `15`. All reads with a mapping quality (MAPQ) score lower than this value will be filtered out from the bam files. |
 |*SAMtools_threads*| Default: `8`. Number of CPUs used by [samtools](http://www.htslib.org/doc/samtools.html) for bam indexing and filtering. |
-|*heatmap_color| Default: `'RdBu'`. A string indicating the color gradient pattern to use for the correlation heatmaps. This value is passed to matplotlib. Therefore, available options (see [matplotlib page](https://matplotlib.org/stable/tutorials/colors/colormaps.html) for examples) are the following: 'Accent', 'Blues', 'BrBG', 'BuGn', 'BuPu', 'CMRmap', 'Dark2', 'GnBu', 'Greens', 'Greys', 'OrRd', 'Oranges', 'PRGn', 'Paired', 'Pastel1', 'Pastel2', 'PiYG', 'PuBu', 'PuBuGn', 'PuOr', 'PuRd', 'Purples', 'RdBu', 'RdGy', 'RdPu', 'RdYlBu', 'RdYlGn', 'Reds', 'Set1', 'Set2', 'Set3', 'Spectral', 'Wistia', 'YlGn', 'YlGnBu', 'YlOrBr', 'YlOrRd', 'afmhot', 'autumn', 'binary', 'bone', 'brg', 'bwr', 'cividis', 'cool', 'coolwarm', 'copper', 'cubehelix', 'flag', 'gist_earth', 'gist_gray', 'gist_heat', 'gist_ncar', 'gist_rainbow', 'gist_stern', 'gist_yarg', 'gnuplot', 'gnuplot2', 'gray', 'hot', 'hsv', 'icefire', 'inferno', 'jet', 'magma', 'mako', 'nipy_spectral', 'ocean', 'pink', 'plasma', 'prism', 'rainbow', 'rocket', 'seismic', 'spring', 'summer', 'tab10', 'tab20', 'tab20b', 'tab20c', 'terrain', 'twilight', 'twilight_shifted', 'viridis', 'vlag', 'winter'. |
+|*heatmap_color*| Default: `'RdBu'`. A string indicating the color gradient pattern to use for the correlation heatmaps. This value is passed to matplotlib. Therefore, available options (see [matplotlib page](https://matplotlib.org/stable/tutorials/colors/colormaps.html) for examples) are the following: 'Accent', 'Blues', 'BrBG', 'BuGn', 'BuPu', 'CMRmap', 'Dark2', 'GnBu', 'Greens', 'Greys', 'OrRd', 'Oranges', 'PRGn', 'Paired', 'Pastel1', 'Pastel2', 'PiYG', 'PuBu', 'PuBuGn', 'PuOr', 'PuRd', 'Purples', 'RdBu', 'RdGy', 'RdPu', 'RdYlBu', 'RdYlGn', 'Reds', 'Set1', 'Set2', 'Set3', 'Spectral', 'Wistia', 'YlGn', 'YlGnBu', 'YlOrBr', 'YlOrRd', 'afmhot', 'autumn', 'binary', 'bone', 'brg', 'bwr', 'cividis', 'cool', 'coolwarm', 'copper', 'cubehelix', 'flag', 'gist_earth', 'gist_gray', 'gist_heat', 'gist_ncar', 'gist_rainbow', 'gist_stern', 'gist_yarg', 'gnuplot', 'gnuplot2', 'gray', 'hot', 'hsv', 'icefire', 'inferno', 'jet', 'magma', 'mako', 'nipy_spectral', 'ocean', 'pink', 'plasma', 'prism', 'rainbow', 'rocket', 'seismic', 'spring', 'summer', 'tab10', 'tab20', 'tab20b', 'tab20c', 'terrain', 'twilight', 'twilight_shifted', 'viridis', 'vlag', 'winter'. |
 |*correlation_method*| Default: `'pearson'`. Possible choices: `'pearson'`, `'spearman'`. Method to use for the sample correlation.
 |*normalization_method*| Default: `'smallest'`. Possible choices: `'norm_range'`, `'smallest'`, `'multiplicative'`. Method to use for the matrices normalization. Values passed to [`hicNormalize`](https://hicexplorer.readthedocs.io/en/latest/content/tools/hicNormalize.html). |
 |*correction_method*| Default: `"ICE"`. Possible choices: `'ICE'`, `'KR'`. Method to use for the matrices correction. Values passed to [`hicCorrectMatrix`](https://hicexplorer.readthedocs.io/en/latest/content/tools/hicCorrectMatrix.html). |
