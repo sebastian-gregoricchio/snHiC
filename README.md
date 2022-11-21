@@ -167,10 +167,6 @@ Hereafter, the meaning of the different parameters is described.
 
 #### Experiment-specific section
 *Required parameters*
-| *fr* | *kfmdpkfdp*|
-|--------:|:---------|
-|adadd | dsff|
-
 | **Parameter**   │   **Description**   |
 |------------:|:----------------|
 |*runs_directory*| The full path to the directory were the input fastq files are contained, e.g. `/home/user/HiC/00_runs/`. Importantly, the name of the files, deprived of the read suffix (e.g., *_R1*/*_R2*) and file extension (e.g., *.fastq.gz*) will be used as sample name.|
@@ -182,7 +178,6 @@ Hereafter, the meaning of the different parameters is described.
 |*matrix_resolution*| A numeric list (e.g., [10,20,40,50,100]) indicated all the matrices resolutions that should be generated expressed in kilo-base-pairs (kb). Importantly, each resolution must be a multiple of the lowest one, which must be greater or equal to 1kb. |
 |*generate_bam*| Default: `False`. A logical value (True/False) indicating whether during the generation of the lowest resolution matrices a bam file with the filtered reads should be written. Notably, this process may be significantly time consuming. |
 |*restriction_enzyme*| A string indicating the enzyme used to generate the HiC libraries. This parameter is used to identify the restriction sites on the genome. Possible choices are: 'DpnII', 'MboI', 'NlaIII', 'Csp6I', 'CviQI', 'HindIII', 'EcoRI', 'BamHI', 'BglII'. Other enzymes can be added in the pipeline by modifying the `restriction_table` at the beginning of the *snHiC.Snakefile*.|
-
 
 
 *Optional parameters*
