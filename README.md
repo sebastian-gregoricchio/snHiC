@@ -170,7 +170,7 @@ Hereafter, the meaning of the different parameters is described.
 
 | **Parameter**   │   **Description**   |
 |------------:|:----------------|
-|*runs_directory*| The full path to the directory were the input fastq files are contained, e.g. `/home/user/HiC/00_runs/`. Importantly, the name of the files, deprived of the read suffix (e.g., _R1/_R2) and file extension (e.g., .fastq.gz) will be used as sample name.|
+|*runs_directory*| The full path to the directory were the input fastq files are contained, e.g. `/home/user/HiC/00_runs/`. Importantly, the name of the files, deprived of the read suffix (e.g., *_R1/_R2*) and file extension (e.g., *.fastq.gz*) will be used as sample name.|
 |*output_directory*| The full path to the folder in which the results should be stored, e.g. `"/home/user/HiC_results/"`. If not already existing, it will be generated automatically. |
 |*fastq_extension*| Default: `.fastq.gz`. The extension of the input fastq files. This string will be removed from the input file names to obtain the sample names. Examples: `".fastq.gz"`, `".fq.gz"`, `".fasta"`, `".fq"`. |
 |*runs_suffix*| Default: `["_R1", "_R2"]`. A list (python format) with the two reads suffixes corresponding to the read1 and read2 for the paired-end sequencing. |
