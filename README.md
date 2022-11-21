@@ -249,7 +249,7 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
   │   ├── <em>sampleA</em>_R2_fastqc.html
   │   ├── <em>sampleA</em>_R2_fastqc.zip
   │   └── ...
-  |
+  │
   ├── <b>02_Alignements
   │   ├── <b>log</b>
   │   │   ├── <em>sampleA</em>_R1_bwa-mem.err
@@ -260,7 +260,7 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
   │   ├── <em>sampleA</em>_R1.bam
   │   ├── <em>sampleA</em>_R2.bam
   │   └── ...
-  |
+  │
   ├── <b>03_BAM</b> / <b>03_BAM__not_generated</b>
   │   ├── <b>falgstat</b>
   │   │   ├── <em>sampleA</em>_flagstat_bam.txt
@@ -269,7 +269,7 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
   │   ├── <em>sampleA</em>_mapQ15_sorted.bam
   │   ├── <em>sampleA</em>_mapQ15_sorted.bai
   │   └── ...
-  |
+  │
   ├── <b>04_Interaction_matrices</b>
   │   ├── <b>log</b>
   │   │   ├── <em>sampleA</em>.<em>100kb</em>.hicBuildMatrix.err
@@ -319,7 +319,7 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
   │   ├── <em>sampleA</em>_mapQ15_<em>50kb</em>.cool
   │   ├── <em>sampleA</em>_mapQ15_<em>50kb</em>.h5
   │   └── ...
-  !
+  │
   ├── <b>05_Interaction_matrices_<em>Normal</em>ized</b>
   │   ├── <em>sampleA</em>_mapQ15_<em>100kb</em>_<em>Normal</em>ized.h5
   │   ├── <em>sampleA</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized.h5
@@ -327,6 +327,7 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
   │   └── <b>sample_correlation</b>
   │       ├── heatmap_correlation.pdf
   │       └── scatter_correlation.pdf
+  │
   ├── <b>06_Interaction_matrices_<em>Normal</em>ized_and_corrected</b>
   │   ├── <b>corrected_matrices</b>
   │   │   ├── <b><em>sampleA</em></b>
@@ -355,7 +356,7 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
   │           ├── <em>sampleA</em>_<em>100kb</em>_<em>Normal</em>ized_thresholdValues.txt
   │           ├── <em>sampleA</em>_<em>50kb</em>_<em>Normal</em>ized_thresholdValues.txt
   │           └── ...
-  |
+  │
   ├── <b>07_TADs_calling_HiCexplorer</b>
   │   ├── <b><em>sampleA</em></b>
   │   │   ├── <b><em>100kb</em>_resolution</b>
@@ -378,9 +379,9 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
   │   │       ├── <em>sampleA</em>_mapQ15_<em>50kb</em>_score.bedgraph
   │   │       ├── <em>sampleA</em>_mapQ15_<em>50kb</em>_tad_score.bm
   │   │       └── <em>sampleA</em>_mapQ15_<em>50kb</em>_zscore_matrix.h5
-  │   ├── <b><em>sample...</em></b>
+  │   └── <b><em>sample...</em></b>
   │       └── ...
-  |
+  │
   ├── <b>08_Interaction_distances</b>
   │   ├── intraChr_distances_all_samples_<em>100kb</em>_resolution_distancesValues.tsv
   │   ├── intraChr_distances_all_samples_<em>100kb</em>_resolution.pdf
@@ -391,7 +392,7 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
   │       ├── intraChr_distances_all_samples_<em>100kb</em>_resolution.out
   │       ├── intraChr_distances_all_samples_<em>50kb</em>_resolution.err
   │       └── intraChr_distances_all_samples_<em>50kb</em>_resolution.out
-  |
+  │
   ├── <b>09_Loop_detection_HiCexplorer</b>
   │   ├── <b><em>sampleA</em></b>
   │   │   ├── <b>log</b>
@@ -403,7 +404,7 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
   │   │   └── <em>sampleA</em>_mapQ15_<em>50kb</em>_loops.bedpe
   │   └── <b><em>sample...</em></b>
   │       └── ...
-  |
+  │
   ├── <b>10_Compartments_detection_dcHiC</b>
   │   ├── <b><em>100kb</em>_resolution</b>
   │   │   ├── dcHiC_input_file_individual_samples_<em>100kb</em>.txt
@@ -440,8 +441,8 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
   │   │   │           ├── chr1.svd.rds
   │   │   │           ├── chr1.txt
   │   │   │           └── ...
-  │   │   ├── <b><em>sample...</em>_mapQ15_<em>100kb</em>_pca</b>
-  │   │   │   └── ...
+  │   │   └── <b><em>sample...</em>_mapQ15_<em>100kb</em>_pca</b>
+  │   │       └── ...
   │   └── <b><em>50kb</em>_resolution</b>
   │       ├── dcHiC_input_file_individual_samples_<em>50kb</em>_<em>Normal</em>_vs_<em>Tumor</em>.txt
   │       ├── dcHiC_input_file_individual_samples_<em>50kb</em>.txt
@@ -605,9 +606,9 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
   │       ├── <em>Tumor</em>_clus.txt
   │       ├── <em>Tumor</em>_cor.txt
   │       └── <em>Tumor</em>_vals.txt
-  |
-  | ********************************************************************************************************
-  |
+  │
+  │ ********************************************************************************************************
+  │
   └── <b>11_Grouped_analyses</b>
       ├── <b>A_summed_matrices</b>
       │   ├── <b>log</b>
