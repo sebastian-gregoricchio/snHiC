@@ -167,13 +167,8 @@ Hereafter, the meaning of the different parameters is described.
 
 #### Experiment-specific section
 *Required parameters*
-
-| **Parameter**   │   **Description**   |
-|------------:|:----------------|
-|fmepsmf|kfp|
-
-| **Parameter**   │   **Description**   |
-|------------:|:----------------|
+| **Parameter** | **Description** |
+|----------------:|:-------------------|
 |*runs_directory*| The full path to the directory were the input fastq files are contained, e.g. `/home/user/HiC/00_runs/`. Importantly, the name of the files, deprived of the read suffix (e.g., *_R1*/*_R2*) and file extension (e.g., *.fastq.gz*) will be used as sample name.|
 |*output_directory*| The full path to the folder in which the results should be stored, e.g. `"/home/user/HiC_results/"`. If not already existing, it will be generated automatically. |
 |*fastq_extension*| Default: `.fastq.gz`. The extension of the input fastq files. This string will be removed from the input file names to obtain the sample names. Examples: `".fastq.gz"`, `".fq.gz"`, `".fasta"`, `".fq"`. |
@@ -187,8 +182,8 @@ Hereafter, the meaning of the different parameters is described.
 
 *Optional parameters*
 
-| **Parameter**   │   **Description**   |
-|------------:|:----------------|
+| **Parameter** | **Description** |
+|----------------:|:-------------------|
 |*perform_grouped_analyses*| A logical value (True/False) indicating whether grouped analyses should be performed. This function requires the parameter `sample_metadata`.|
 |*sample_metadata*| The path to a tab-delimited txt file containing two columns: *sample* and the name of the *group* at which it belongs. This sample names must be indicated without the read file suffix and extension (e.g *sample.A_R1.fastq.gz* --> *sample.A*). |
 |*detect_loops*| A logical value (True/False) indicating whether loops detection should be performed by [HiCExplorer](https://hicexplorer.readthedocs.io/en/latest/content/tools/hicDetectLoops.html). |
