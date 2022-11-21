@@ -170,7 +170,7 @@ Hereafter, the meaning of the different parameters is described.
 #### Experiment-specific section
 *Required parameters*
 
-| **Parameter**   |   **Description**   |
+| **Parameter**   │   **Description**   |
 |------------:|:----------------|
 |*runs_directory*| The full path to the directory were the input fastq files are contained, e.g. `/home/user/HiC/00_runs/`. Importantly, the name of the files, deprived of the read suffix (e.g., _R1/_R2) and file extension (e.g., .fastq.gz) will be used as sample name.|
 |*output_directory*| The full path to the folder in which the results should be stored, e.g. `"/home/user/HiC_results/"`. If not already existing, it will be generated automatically. |
@@ -186,7 +186,7 @@ Hereafter, the meaning of the different parameters is described.
 
 *Optional parameters*
 
-| **Parameter**   |   **Description**   |
+| **Parameter**   │   **Description**   |
 |------------:|:----------------|
 |*perform_grouped_analyses*| A logical value (True/False) indicating whether grouped analyses should be performed. This function requires the parameter `sample_metadata`.|
 |*sample_metadata*| The path to a tab-delimited txt file containing two columns: *sample* and the name of the *group* at which it belongs. This sample names must be indicated without the read file suffix and extension (e.g *sample.A_R1.fastq.gz* --> *sample.A*). |
@@ -234,7 +234,6 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
 
 <pre>
   <b><em>output_folder</em></b>
-  <b>results_manual</b>
   ├── <b>01_fastQC_raw</b>
   │   ├── <b>multiQC_raw</b>
   │   │   ├── <b>multiQC_report_fastqRaw_data</b>
@@ -263,12 +262,12 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
   │   └── ...
   |
   ├── <b>03_BAM</b> / <b>03_BAM__not_generated</b>
-  |   ├── <b>falgstat</b>
+  │   ├── <b>falgstat</b>
   │   │   ├── <em>sampleA</em>_flagstat_bam.txt
   │   │   ├── <em>sampleB</em>_flagstat_bam.txt
-  │   |   └── ...
-  |   ├── <em>sampleA</em>_mapQ15_sorted.bam
-  |   ├── <em>sampleA</em>_mapQ15_sorted.bai
+  │   │   └── ...
+  │   ├── <em>sampleA</em>_mapQ15_sorted.bam
+  │   ├── <em>sampleA</em>_mapQ15_sorted.bai
   │   └── ...
   |
   ├── <b>04_Interaction_matrices</b>
@@ -672,17 +671,17 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
       ├── <b>D_TADs_calling_HiCexplorer</b>
       │   ├── <b><em>Normal</em></b>
       │   │   ├── <b><em>50kb</em>_resolution</b>
-      │   │   |   ├── <b>log</b>
-      │   │   |   │   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_TAD.calling.err
-      │   │   |   │   └── <em>Normal</em>_mapQ15_<em>50kb</em>_TAD.calling.out
-      │   │   |   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_boundaries.bed
-      │   │   |   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_boundaries.gff
-      │   │   |   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_domains.bed
-      │   │   |   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_score.bedgraph
-      │   │   |   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_tad_score.bm
-      │   │   |   └── <em>Normal</em>_mapQ15_<em>50kb</em>_zscore_matrix.h5
-      |   |   └── <b><em>100kb</em>_resolution</b>
-      |   |       └── ...
+      │   │   │   ├── <b>log</b>
+      │   │   │   |   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_TAD.calling.err
+      │   │   │   |   └── <em>Normal</em>_mapQ15_<em>50kb</em>_TAD.calling.out
+      │   │   │   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_boundaries.bed
+      │   │   │   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_boundaries.gff
+      │   │   │   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_domains.bed
+      │   │   │   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_score.bedgraph
+      │   │   │   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_tad_score.bm
+      │   │   │   └── <em>Normal</em>_mapQ15_<em>50kb</em>_zscore_matrix.h5
+      │   │   └── <b><em>100kb</em>_resolution</b>
+      │   │       └── ...
       │   └── <b><em>Tumor</em></b>
       │       └── ...
       ├── <b>E_Loop_detection_HiCexplorer</b>
@@ -699,173 +698,173 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
       |
       └── <b>F_Compartments_detection_dcHiC</b>
           ├── <b><em>50kb</em>_resolution</b>
-          |   ├── dcHiC_input_file_grouped_samples_<em>50kb</em>.txt
-          |   ├── dcHiC_input_file_individual_samples_<em>50kb</em>_<em>Normal</em>_vs_<em>Tumor</em>.txt
-          |   ├── <b>DifferentialResult</b>
-          |   │   ├── <b>all_vs_all</b>
-          |   │   │   ├── <b>fdr_result</b>
-          |   │   │   │   ├── differential.intra_sample_chr1_combined.pcQnm.bedGraph
-          |   │   │   │   ├── ...
-          |   │   │   │   ├── differential.intra_sample_combined.Filtered.pcQnm.bedGraph
-          |   │   │   │   ├── differential.intra_sample_combined.pcQnm.bedGraph
-          |   │   │   │   ├── differential.intra_sample_group.Filtered.pcOri.bedGraph
-          |   │   │   │   ├── differential.intra_sample_group.Filtered.pcQnm.bedGraph
-          |   │   │   │   ├── differential.intra_sample_group.pcOri.bedGraph
-          |   │   │   │   └── differential.intra_sample_group.pcQnm.bedGraph
-          |   │   │   ├── <b><em>Normal</em>_data</b>
-          |   │   │   │   ├── intra_chr1_combined.pcOri.bedGraph
-          |   │   │   │   ├── intra_chr1_combined.pcQnm.bedGraph
-          |   │   │   │   └── ...
-          |   │   │   │   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_intra_chr1.pc.bedGraph
-          |   │   │   │   └── ...
-          |   │   │   ├── <b>pcOri</b>
-          |   │   │   │   ├── intra_sample_chr1_combined.pcOri.bedGraph
-          |   │   │   │   └── ...
-          |   │   │   ├── <b>pcQnm</b>
-          |   │   │   │   ├── intra_sample_chr1_combined.pcQnm.bedGraph
-          |   │   │   │   └── ...
-          |   │   │   ├── <b><em>Tumor</em>_data</b>
-          |   │   │   │   ├── intra_chr1_combined.pcOri.bedGraph
-          |   │   │   │   └── ...
-          |   │   │   │   ├── <em>Tumor</em>_mapQ15_<em>50kb</em>_intra_chr11.pc.bedGraph
-          |   │   │   │   └── ...
-          |   │   │   └── <b>viz</b>
-          |   │   │       ├── <b>files</b>
-          |   │   │       │   ├── intra_compartment.bedGraph
-          |   │   │       │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC_A.compartment.bedGraph
-          |   │   │       │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC_B.compartment.bedGraph
-          |   │   │       │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC.bedGraph
-          |   │   │       │   ├── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC_A.compartment.bedGraph
-          |   │   │       │   ├── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC_B.compartment.bedGraph
-          |   │   │       │   └── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC.bedGraph
-          |   │   │       ├── <b>files_bigWig</b>
-          |   │   │       │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC.bw
-          |   │   │       │   └── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC.bw
-          |   │   │       ├── <b>files_compartment_beds</b>
-          |   │   │       │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC_compartments_sorted.bed
-          |   │   │       │   └── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC_compartments_sorted.bed
-          |   │   │       └── <b>vizIGV_intra</b>
-          |   │   │           ├── <b>data</b>
-          |   │   │           │   ├── differential_compartment.log10Padj.bedGraph.gz
-          |   │   │           │   ├── differential_compartment.Mahalanobis.bedGraph
-          |   │   │           │   ├── differential_compartment.Mahalanobis.bedGraph.gz
-          |   │   │           │   ├── <em>Normal</em>.PC.bedGraph.gz
-          |   │   │           │   └── <em>Tumor</em>.PC.bedGraph.gz
-          |   │   │           ├── <b>data_bigWig</b>
-          |   │   │           │   ├── differential_compartment.log10Padj.bw
-          |   │   │           │   ├── differential_compartment.Mahalanobis.bw
-          |   │   │           │   ├── <em>Normal</em>.PC.bw
-          |   │   │           │   └── <em>Tumor</em>.PC.bw
-          |   │   │           ├── <b>data_compartment_beds</b>
-          |   │   │           │   ├── <em>Normal</em>.PC_compartments_sorted.bed
-          |   │   │           │   └── <em>Tumor</em>.PC_compartments_sorted.bed
-          |   │   │           └── intra_igv_pcQnm.html
-          |   │   └── <b><em>Normal</em>_vs_<em>Tumor</em></b>
-          |   │       ├── <b>fdr_result</b>
-          |   │       │   ├── differential.intra_sample_chr1_combined.pcQnm.bedGraph
-          |   │       │   ├── ...
-          |   │       │   ├── differential.intra_sample_combined.Filtered.pcQnm.bedGraph
-          |   │       │   ├── differential.intra_sample_combined.pcQnm.bedGraph
-          |   │       │   ├── differential.intra_sample_group.Filtered.pcOri.bedGraph
-          |   │       │   ├── differential.intra_sample_group.Filtered.pcQnm.bedGraph
-          |   │       │   ├── differential.intra_sample_group.pcOri.bedGraph
-          |   │       │   └── differential.intra_sample_group.pcQnm.bedGraph
-          |   │       ├── <b><em>Normal</em>_data</b>
-          |   │       │   ├── intra_chr1_combined.pcOri.bedGraph
-          |   │       │   ├── intra_chr1_combined.pcQnm.bedGraph
-          |   │       │   └── ...
-          |   │       │   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_intra_chr1.pc.bedGraph
-          |   │       │   └── ...
-          |   │       ├── <b>pcOri</b>
-          |   │       │   ├── intra_sample_chr1_combined.pcOri.bedGraph
-          |   │       │   └── ...
-          |   │       ├── <b>pcQnm</b>
-          |   │       │   ├── intra_sample_chr1_combined.pcQnm.bedGraph
-          |   │       │   └── ...
-          |   │       ├── <b><em>Tumor</em>_data</b>
-          |   │       │   ├── intra_chr1_combined.pcOri.bedGraph
-          |   │       │   └── ...
-          |   │       └── <b>viz</b>
-          |   │           ├── <b>files</b>
-          |   │           │   ├── intra_compartment.bedGraph
-          |   │           │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC_A.compartment.bedGraph
-          |   │           │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC_B.compartment.bedGraph
-          |   │           │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC.bedGraph
-          |   │           │   ├── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC_A.compartment.bedGraph
-          |   │           │   ├── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC_B.compartment.bedGraph
-          |   │           │   └── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC.bedGraph
-          |   │           ├── <b>files_bigWig</b>
-          |   │           │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC.bw
-          |   │           │   └── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC.bw
-          |   │           ├── <b>files_compartment_beds</b>
-          |   │           │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC_compartments_sorted.bed
-          |   │           │   └── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC_compartments_sorted.bed
-          |   │           └── <b>vizIGV_intra</b>
-          |   │               ├── <b>data</b>
-          |   │               │   ├── differential_compartment.log10Padj.bedGraph.gz
-          |   │               │   ├── differential_compartment.Mahalanobis.bedGraph
-          |   │               │   ├── differential_compartment.Mahalanobis.bedGraph.gz
-          |   │               │   ├── <em>Normal</em>.PC.bedGraph.gz
-          |   │               │   └── <em>Tumor</em>.PC.bedGraph.gz
-          |   │               ├── <b>data_bigWig</b>
-          |   │               │   ├── differential_compartment.log10Padj.bw
-          |   │               │   ├── differential_compartment.Mahalanobis.bw
-          |   │               │   ├── <em>Normal</em>.PC.bw
-          |   │               │   └── <em>Tumor</em>.PC.bw
-          |   │               ├── <b>data_compartment_beds</b>
-          |   │               │   ├── <em>Normal</em>.PC_compartments_sorted.bed
-          |   │               │   └── <em>Tumor</em>.PC_compartments_sorted.bed
-          |   │               └── intra_igv_pcQnm.html
-          |   ├── <b>filtered_hicpro_beds</b>
-          |   │   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected_hicpro_FILTERED.bed
-          |   │   └── <em>Tumor</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected_hicpro_FILTERED.bed
-          |   ├── <b>hg19_500000_goldenpathData</b>
-          |   │   ├── cytoBand.txt.gz
-          |   │   ├── hg19.binned.bed
-          |   │   ├── hg19.chrom.sizes
-          |   │   ├── hg19.fa
-          |   │   ├── hg19.fa.fai
-          |   │   ├── hg19.fa.gz
-          |   │   ├── hg19.GCpt.bedGraph
-          |   │   ├── hg19.GCpt.tss.bedGraph
-          |   │   ├── hg19.refGene.gtf.gz
-          |   │   └── hg19.tss.bed
-          |   ├── <em>Normal</em>_chr_pc_selected.txt
-          |   ├── <em>Normal</em>_clus.txt
-          |   ├── <em>Normal</em>_cor.txt
-          |   ├── <b><em>Normal</em>_mapQ15_<em>50kb</em>_pca</b>
-          |   │   └── <b>intra_pca</b>
-          |   │       └── <b><em>Normal</em>_mapQ15_<em>50kb</em>_mat</b>
-          |   │           ├── chr1.bed
-          |   │           ├── chr1.cmat.txt
-          |   │           ├── chr1.distparam
-          |   │           ├── chr1.PC1.bedGraph
-          |   │           ├── chr1.PC2.bedGraph
-          |   │           ├── chr1.pc.bedGraph
-          |   │           ├── chr1.pc.txt
-          |   │           ├── chr1.precmat.txt
-          |   │           ├── chr1.svd.rds
-          |   │           ├── chr1.txt
-          |   │           └── ...
-          |   ├── <em>Normal</em>_vals.txt
-          |   ├── <em>Tumor</em>_chr_pc_selected.txt
-          |   ├── <em>Tumor</em>_clus.txt
-          |   ├── <em>Tumor</em>_cor.txt
-          |   ├── <b><em>Tumor</em>_mapQ15_<em>50kb</em>_pca</b>
-          |   │   └── <b>intra_pca</b>
-          |   │       └── <b><em>Tumor</em>_mapQ15_<em>50kb</em>_mat</b>
-          |   │           ├── chr1.bed
-          |   │           ├── chr1.cmat.txt
-          |   │           ├── chr1.distparam
-          |   │           ├── chr1.PC1.bedGraph
-          |   │           ├── chr1.PC2.bedGraph
-          |   │           ├── chr1.pc.bedGraph
-          |   │           ├── chr1.pc.txt
-          |   │           ├── chr1.precmat.txt
-          |   │           ├── chr1.svd.rds
-          |   │           ├── chr1.txt
-          |   │           └── ...
-          |   └── <em>Tumor</em>_vals.txt
+          │   ├── dcHiC_input_file_grouped_samples_<em>50kb</em>.txt
+          │   ├── dcHiC_input_file_individual_samples_<em>50kb</em>_<em>Normal</em>_vs_<em>Tumor</em>.txt
+          │   ├── <b>DifferentialResult</b>
+          │   |   ├── <b>all_vs_all</b>
+          │   |   │   ├── <b>fdr_result</b>
+          │   |   │   │   ├── differential.intra_sample_chr1_combined.pcQnm.bedGraph
+          │   |   │   │   ├── ...
+          │   |   │   │   ├── differential.intra_sample_combined.Filtered.pcQnm.bedGraph
+          │   |   │   │   ├── differential.intra_sample_combined.pcQnm.bedGraph
+          │   |   │   │   ├── differential.intra_sample_group.Filtered.pcOri.bedGraph
+          │   |   │   │   ├── differential.intra_sample_group.Filtered.pcQnm.bedGraph
+          │   |   │   │   ├── differential.intra_sample_group.pcOri.bedGraph
+          │   |   │   │   └── differential.intra_sample_group.pcQnm.bedGraph
+          │   |   │   ├── <b><em>Normal</em>_data</b>
+          │   |   │   │   ├── intra_chr1_combined.pcOri.bedGraph
+          │   |   │   │   ├── intra_chr1_combined.pcQnm.bedGraph
+          │   |   │   │   └── ...
+          │   |   │   │   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_intra_chr1.pc.bedGraph
+          │   |   │   │   └── ...
+          │   |   │   ├── <b>pcOri</b>
+          │   |   │   │   ├── intra_sample_chr1_combined.pcOri.bedGraph
+          │   |   │   │   └── ...
+          │   |   │   ├── <b>pcQnm</b>
+          │   |   │   │   ├── intra_sample_chr1_combined.pcQnm.bedGraph
+          │   |   │   │   └── ...
+          │   |   │   ├── <b><em>Tumor</em>_data</b>
+          │   |   │   │   ├── intra_chr1_combined.pcOri.bedGraph
+          │   |   │   │   └── ...
+          │   |   │   │   ├── <em>Tumor</em>_mapQ15_<em>50kb</em>_intra_chr11.pc.bedGraph
+          │   |   │   │   └── ...
+          │   |   │   └── <b>viz</b>
+          │   |   │       ├── <b>files</b>
+          │   |   │       │   ├── intra_compartment.bedGraph
+          │   |   │       │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC_A.compartment.bedGraph
+          │   |   │       │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC_B.compartment.bedGraph
+          │   |   │       │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC.bedGraph
+          │   |   │       │   ├── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC_A.compartment.bedGraph
+          │   |   │       │   ├── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC_B.compartment.bedGraph
+          │   |   │       │   └── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC.bedGraph
+          │   |   │       ├── <b>files_bigWig</b>
+          │   |   │       │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC.bw
+          │   |   │       │   └── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC.bw
+          │   |   │       ├── <b>files_compartment_beds</b>
+          │   |   │       │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC_compartments_sorted.bed
+          │   |   │       │   └── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC_compartments_sorted.bed
+          │   |   │       └── <b>vizIGV_intra</b>
+          │   |   │           ├── <b>data</b>
+          │   |   │           │   ├── differential_compartment.log10Padj.bedGraph.gz
+          │   |   │           │   ├── differential_compartment.Mahalanobis.bedGraph
+          │   |   │           │   ├── differential_compartment.Mahalanobis.bedGraph.gz
+          │   |   │           │   ├── <em>Normal</em>.PC.bedGraph.gz
+          │   |   │           │   └── <em>Tumor</em>.PC.bedGraph.gz
+          │   |   │           ├── <b>data_bigWig</b>
+          │   |   │           │   ├── differential_compartment.log10Padj.bw
+          │   |   │           │   ├── differential_compartment.Mahalanobis.bw
+          │   |   │           │   ├── <em>Normal</em>.PC.bw
+          │   |   │           │   └── <em>Tumor</em>.PC.bw
+          │   |   │           ├── <b>data_compartment_beds</b>
+          │   |   │           │   ├── <em>Normal</em>.PC_compartments_sorted.bed
+          │   |   │           │   └── <em>Tumor</em>.PC_compartments_sorted.bed
+          │   |   │           └── intra_igv_pcQnm.html
+          │   |   └── <b><em>Normal</em>_vs_<em>Tumor</em></b>
+          │   |       ├── <b>fdr_result</b>
+          │   |       │   ├── differential.intra_sample_chr1_combined.pcQnm.bedGraph
+          │   |       │   ├── ...
+          │   |       │   ├── differential.intra_sample_combined.Filtered.pcQnm.bedGraph
+          │   |       │   ├── differential.intra_sample_combined.pcQnm.bedGraph
+          │   |       │   ├── differential.intra_sample_group.Filtered.pcOri.bedGraph
+          │   |       │   ├── differential.intra_sample_group.Filtered.pcQnm.bedGraph
+          │   |       │   ├── differential.intra_sample_group.pcOri.bedGraph
+          │   |       │   └── differential.intra_sample_group.pcQnm.bedGraph
+          │   |       ├── <b><em>Normal</em>_data</b>
+          │   |       │   ├── intra_chr1_combined.pcOri.bedGraph
+          │   |       │   ├── intra_chr1_combined.pcQnm.bedGraph
+          │   |       │   └── ...
+          │   |       │   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_intra_chr1.pc.bedGraph
+          │   |       │   └── ...
+          │   |       ├── <b>pcOri</b>
+          │   |       │   ├── intra_sample_chr1_combined.pcOri.bedGraph
+          │   |       │   └── ...
+          │   |       ├── <b>pcQnm</b>
+          │   |       │   ├── intra_sample_chr1_combined.pcQnm.bedGraph
+          │   |       │   └── ...
+          │   |       ├── <b><em>Tumor</em>_data</b>
+          │   |       │   ├── intra_chr1_combined.pcOri.bedGraph
+          │   |       │   └── ...
+          │   |       └── <b>viz</b>
+          │   |           ├── <b>files</b>
+          │   |           │   ├── intra_compartment.bedGraph
+          │   |           │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC_A.compartment.bedGraph
+          │   |           │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC_B.compartment.bedGraph
+          │   |           │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC.bedGraph
+          │   |           │   ├── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC_A.compartment.bedGraph
+          │   |           │   ├── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC_B.compartment.bedGraph
+          │   |           │   └── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC.bedGraph
+          │   |           ├── <b>files_bigWig</b>
+          │   |           │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC.bw
+          │   |           │   └── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC.bw
+          │   |           ├── <b>files_compartment_beds</b>
+          │   |           │   ├── intra_<em>Normal</em>_mapQ15_<em>50kb</em>_PC_compartments_sorted.bed
+          │   |           │   └── intra_<em>Tumor</em>_mapQ15_<em>50kb</em>_PC_compartments_sorted.bed
+          │   |           └── <b>vizIGV_intra</b>
+          │   |               ├── <b>data</b>
+          │   |               │   ├── differential_compartment.log10Padj.bedGraph.gz
+          │   |               │   ├── differential_compartment.Mahalanobis.bedGraph
+          │   |               │   ├── differential_compartment.Mahalanobis.bedGraph.gz
+          │   |               │   ├── <em>Normal</em>.PC.bedGraph.gz
+          │   |               │   └── <em>Tumor</em>.PC.bedGraph.gz
+          │   |               ├── <b>data_bigWig</b>
+          │   |               │   ├── differential_compartment.log10Padj.bw
+          │   |               │   ├── differential_compartment.Mahalanobis.bw
+          │   |               │   ├── <em>Normal</em>.PC.bw
+          │   |               │   └── <em>Tumor</em>.PC.bw
+          │   |               ├── <b>data_compartment_beds</b>
+          │   |               │   ├── <em>Normal</em>.PC_compartments_sorted.bed
+          │   |               │   └── <em>Tumor</em>.PC_compartments_sorted.bed
+          │   |               └── intra_igv_pcQnm.html
+          │   ├── <b>filtered_hicpro_beds</b>
+          │   |   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected_hicpro_FILTERED.bed
+          │   |   └── <em>Tumor</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected_hicpro_FILTERED.bed
+          │   ├── <b>hg19_500000_goldenpathData</b>
+          │   |   ├── cytoBand.txt.gz
+          │   |   ├── hg19.binned.bed
+          │   |   ├── hg19.chrom.sizes
+          │   |   ├── hg19.fa
+          │   |   ├── hg19.fa.fai
+          │   |   ├── hg19.fa.gz
+          │   |   ├── hg19.GCpt.bedGraph
+          │   |   ├── hg19.GCpt.tss.bedGraph
+          │   |   ├── hg19.refGene.gtf.gz
+          │   |   └── hg19.tss.bed
+          │   ├── <em>Normal</em>_chr_pc_selected.txt
+          │   ├── <em>Normal</em>_clus.txt
+          │   ├── <em>Normal</em>_cor.txt
+          │   ├── <b><em>Normal</em>_mapQ15_<em>50kb</em>_pca</b>
+          │   |   └── <b>intra_pca</b>
+          │   |       └── <b><em>Normal</em>_mapQ15_<em>50kb</em>_mat</b>
+          │   |           ├── chr1.bed
+          │   |           ├── chr1.cmat.txt
+          │   |           ├── chr1.distparam
+          │   |           ├── chr1.PC1.bedGraph
+          │   |           ├── chr1.PC2.bedGraph
+          │   |           ├── chr1.pc.bedGraph
+          │   |           ├── chr1.pc.txt
+          │   |           ├── chr1.precmat.txt
+          │   |           ├── chr1.svd.rds
+          │   |           ├── chr1.txt
+          │   |           └── ...
+          │   ├── <em>Normal</em>_vals.txt
+          │   ├── <em>Tumor</em>_chr_pc_selected.txt
+          │   ├── <em>Tumor</em>_clus.txt
+          │   ├── <em>Tumor</em>_cor.txt
+          │   ├── <b><em>Tumor</em>_mapQ15_<em>50kb</em>_pca</b>
+          │   |   └── <b>intra_pca</b>
+          │   |       └── <b><em>Tumor</em>_mapQ15_<em>50kb</em>_mat</b>
+          │   |           ├── chr1.bed
+          │   |           ├── chr1.cmat.txt
+          │   |           ├── chr1.distparam
+          │   |           ├── chr1.PC1.bedGraph
+          │   |           ├── chr1.PC2.bedGraph
+          │   |           ├── chr1.pc.bedGraph
+          │   |           ├── chr1.pc.txt
+          │   |           ├── chr1.precmat.txt
+          │   |           ├── chr1.svd.rds
+          │   |           ├── chr1.txt
+          │   |           └── ...
+          │   └── <em>Tumor</em>_vals.txt
           └── <b><em>50kb</em>_resolution</b>
 </pre>
 
@@ -918,7 +917,7 @@ This folder contains multiple quality controls, feature counts and sample correl
 * `Counts`: contains the results of featureCounts (from subread) with the counts of reads and other statistics on called peaks for each sample. It is availble also tab-separated file containing a summary of the main features counts for each sample: <br><br>
 **Summary counts table description**
 
-| **Column**   |   **Description**   |
+| **Column**   │   **Description**   |
 |------------:|:----------------|
 | *Sample* | Sample name |
 | *Reads_R1* | Number of reads in read.1 fastq file. |
