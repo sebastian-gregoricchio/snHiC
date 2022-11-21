@@ -607,7 +607,7 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
   │       ├── <em>Tumor</em>_cor.txt
   │       └── <em>Tumor</em>_vals.txt
   │
-  │ ********************************************************************************************************
+  │ ***************************************************************************************
   │
   └── <b>11_Grouped_analyses</b>
       ├── <b>A_summed_matrices</b>
