@@ -875,83 +875,8 @@ When the reads are aligned onto the reference genome by bwa, the resulting SAM f
 
 <br/><br/>
 
-### 03_BAM_dedup / 03_BAM_mdup
-PICARD is used to remove (suffix: dedup) or mark (suffix: mdup) duplicates in the BAM files. The resulting BAMs are stored in the subfolder "unshifted_bams", while the PICARD metrics is stored in the "metrics" folder. A fastq quality control (fastQC) and relative multiQC report is performed on the unshifted bams. <br>
-Then, the Tn5 nick reparation bias is corrected by shifting of the reads using [deeptools alignmentSieve](https://deeptools.readthedocs.io/en/develop/content/tools/alignmentSieve.html) (suffix: shifted). Notice that, after shifting, the read sequence information is lost in the shifted BAMs. <br>
-Flagstat metrics is generated for each unshifted and shifted bam file and stored in the "falgstat" folder.
+### 03_BAM / 03_BAM__not_generated
 
-Furthermore, in the "fragmentSizeDistribution_plots" folder the distribution of the fragment sizes for each sample (shifted BAMs) and a file collecting all the plots in a single file. Here after an example of a good (left) and a bad (right) fragment size distribution.
-
-![fragment size distribution examples](https://sebastian-gregoricchio.github.io/snakeATAC/resources/fragmentSize_distribution_examples.svg)
-
-An optimal fragment size distribution should be included within a range of 50-800bp, with a periodicity of ~150bp (corrsponding to mono-, di-, tri-, ... nucleosomes) with a lower intensity for larger fragments.
-
-<br/><br/>
-
-
-### 04_Normalization
-Shifted signal is normalized on sequencing depth library upon copy number variation correction by [HMCan](https://academic.oup.com/bioinformatics/article/29/23/2979/246862?login=false) (if requested by the user). The bin size used is indicated in the resulting bigWig file name (suffix: bs#). <br>
-However, these bigWig files can be normalized more precisely normalized in the case that you dispone of a corresponding RNA-seq data set using [CHIPIN](https://doi.org/10.1186/s12859-021-04320-3) (L. Polit *et.al*, BMC Bioinformatics, 2021). Examples of CHIPIN usage can be found at [S. Gregoricchio *et al.*, Nucleic Acids Research (2022)](https://doi.org/10.1093/nar/gkac613).
-
-<br/><br/>
-
-### 05_Peaks_MACS3 (when HMCan correction is not performed)
-Peaks and summits (if required by the user) are called by MACS3 on shifted BAMs. The FDR (False Discovery Ratio) threshold used is indicated in the file name (suffix: FDR#). When HMCan correction is active, the peaks are called by HMCan itself.
-
-<br/><br/>
-
-### 06_Overall_quality_and_info
-This folder contains multiple quality controls, feature counts and sample correlation plots:
-
-*  `Lorenz_curve_deeptools.plotFingreprint_allSamples.pdf` is a plot showing the enrichment of the signal allover the genome. Indeed, if a sample does not show any enrichment the reads will equally distributed over the genome resulting in a diagonal line in the plot (left panel). When instead the signal is specific for the feature sought (e.g., open chromatin) it will be enriched only at specific location and the curve will be closer to the bottom-right corner of the plot (right panel).
-
-![lorenz curve examples](https://sebastian-gregoricchio.github.io/snakeATAC/resources/lorenz_curve_examples.svg)
-
-<br/><br/>
-
-* `Counts`: contains the results of featureCounts (from subread) with the counts of reads and other statistics on called peaks for each sample. It is availble also tab-separated file containing a summary of the main features counts for each sample: <br><br>
-**Summary counts table description**
-
-| **Column**   │   **Description**   |
-|------------:|:----------------|
-| *Sample* | Sample name |
-| *Reads_R1* | Number of reads in read.1 fastq file. |
-| *Reads_R2* | Number of reads in read.2 fastq file. |
-| *Reads_total* | Total number of reads (read.1 + read.2). |
-| *unfiltered_BAM* | Total number of reads in the bam file after filtering by map quality (MAPQ). |
-| *Percentage_MT* | Approximative percentage of reads represented by the mithocondrial DNA. Ideally lower than 10-20%. |
-| *dedup_BAM* | Total number of reads left after BAM reads deduplication. |
-| *duplicated_reads* | Number of duplicated reads. If the duplicates are not remove the value will be 0. |
-| *shifted_BAM* | Number of reads in the shifted BAMs. |
-| *loss_post_shifting* | Number of reads lost upon BAM shifting. Consider that reads falling in blacklisted regions are removed. |
-| *n.peaks* | Total number of peaks called. |
-| *FRiP.perc* | Frequency Reads in Peaks percentage, corresponds to the number of reads falling in peak regions divide by the total number of reads and multiplied by 100. |
-| *FRiP.quality* | A label ("good" or "bad") to indicate whether the FRiP score is good or not for a given sample. The threshold can be changed in the config file by the user, by the default 20 (as suggested by the [ENCODE guidelines](https://www.encodeproject.org/atac-seq/)). |
-
-<br/><br/>
-
-* `Sample_comparisons`: the plots in this folder help the user to understand the variability of the samples.
-  + `multiBigWigSummary_matrix_allSamples.npz`: result of deeptools multiBigWigSummary used to plot the PCA and correlation plots;
-  + `PCA_on_BigWigs_wholeGenome.pdf`: Principal Component Analyses results of the signal allover the genome;
-  + `Peak_comparison`:
-    - `all_samples_peaks_concatenation_collapsed_sorted.bed`: the peaks called in all samples are merged and collapsed in this bed file;
-    - `peaks_score_matrix_all_samples_MACS3.npz`: a matrix containing the average score at each peak (previous bed file) for each samples is generated;
-    - `peaks_score_matrix_all_samples_table_MACS3.tsv`: same matrix as before, but in tab-separated format.
-    - `Heatmaps`: the matrix generated on all peaks is used to cluster the samples and two heatmaps are plotted: one on the log1p of the raw scores, and one on the z-score (on rows)
-  + `Sample_correlation`: scatter and heatmap correlation plots are generated based on the signal over the whole genome. Both Pearson and Spearman methods are used.
-
-<br/><br/>
-
-
-
-
-### 07_Variant_calling
-If required by the user, the pipeline can call altered single-nucleotide polymorphism (SNP) and insertion/deletions (InDel). [PICARD CreateSequenceDictionary](https://gatk.broadinstitute.org/hc/en-us/articles/360037068312-CreateSequenceDictionary-Picard-) is used to create a genome dictionary in order to perform a Base Quality Score Recalibration ([BQSR](https://gatk.broadinstitute.org/hc/en-us/articles/360035890531-Base-Quality-Score-Recalibration-BQSR-)) of unshifted BAM files (after filling of the ReadGroups by [PICARD AddOrReplaceReadGroups](https://gatk.broadinstitute.org/hc/en-us/articles/360037226472-AddOrReplaceReadGroups-Picard-)) by [GATK BaseRecalibrator](https://gatk.broadinstitute.org/hc/en-us/articles/360036898312-BaseRecalibrator) and [GATK ApplyBQSR](https://gatk.broadinstitute.org/hc/en-us/articles/360037055712-ApplyBQSR). <br>
-The recalibrated BAMs are used by [GATK HaplotypeCaller](https://gatk.broadinstitute.org/hc/en-us/articles/360037225632-HaplotypeCaller) to generate a [GVCF](https://gatk.broadinstitute.org/hc/en-us/articles/360035531812-GVCF-Genomic-Variant-Call-Format) (Genomic Variant Call Format) file containing the genomic variants individuated at the regions included in the file resulting by the merge of all the called peaks. This GVCF file is then recalibrated by [GATK GenotypeGVCFs](https://gatk.broadinstitute.org/hc/en-us/articles/360037435831-GenotypeGVCFs) resulting in a VCF file. <br>
-The VCF recalibrated file is selected by [GATK SelectVariants](https://gatk.broadinstitute.org/hc/en-us/articles/360037055952-SelectVariants) to obtain two separate VCF files corresponding to SNPs and InDels. <br>
-Ultimately, these VCF are hard-filtered for sequencing depth (DP) and quality (QUAL) by [SnpSift Filter](https://pcingola.github.io/SnpEff/ss_filter/) and then exported in a txt table by [SnpSift Extract Fields](https://pcingola.github.io/SnpEff/ss_extractfields/). Notably, the genotype '0|0' (both alleles not mutated) is filtered out from the .txt table. <br>
-The SNP, or InDel, .txt tables from all samples are merged in a unique one with the addition of a column corresponding to the sample name. These tables are used to generate a plot of the counts of variants found in each sample.
-Further, a coverage plot at the merged peaks is generated by [deeptools plotCoverage](https://deeptools.readthedocs.io/en/develop/content/tools/plotCoverage.html).
 
 
 <br/><br/>
