@@ -228,8 +228,6 @@ Hereafter, the meaning of the different parameters is described.
 ## Results
 For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (Normal and Tumor) and for which 2 resolutions will be analyzed (50kb and 100kb), the structure of the *output_folder* will be the following (`...` means repetition of the same file pattern as the parental file/folder):
 
-################## REMEMBER TO PUT THE OUTPUT BAM DIRECTORY ##########
-
 <pre>
   <b><em>output_folder</em></b>
   ├── <b>01_fastQC_raw</b>
