@@ -102,7 +102,7 @@ Finally, TAD and Loops detection can be performed by [HiCExplorer](https://hicex
 
 More details on [parameters](#Configuration-file) and structure/meaning of the [results](#Results) can be found in the next paragraphs.
 
-![snHiC workflow](https://github.com/sebastian-gregoricchio/snHiC/tree/main/resources/snHiC_workflow.png)
+![snHiC workflow](https://sebastian-gregoricchio.github.io/snHiC/resources/snHiC_workflow.png)
 
 
 All the possible rule names are listed below.
