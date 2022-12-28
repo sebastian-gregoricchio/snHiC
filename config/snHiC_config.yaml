@@ -6,15 +6,15 @@
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ESSENTIAL PARAMETERS @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### 0. General parameters  =========================================================================================================
 # 0.1. Project path and samples info
-runs_directory: "/home/s.gregoricchio/DATA_seb/Alex_endomitrium_project/HiC_tissues/analyses_SG/00_fastQ"
-output_directory: "/home/s.gregoricchio/DATA_seb/Alex_endomitrium_project/HiC_tissues/analyses_SG/"
+runs_directory: "/home/user/HiC_analyses/00_fastQ"
+output_directory: "/home/user/HiC_analyses/"
 
 # 0.2 Input file extensions
 fastq_extension: ".fastq.gz"
 runs_suffix: ["_R1", "_R2"]
 
 # 0.3. Genome
-genome_fasta: "/home/s.gregoricchio/annotations/genomes/Hg19_UCSC/one_file_fasta/hg19.fa"
+genome_fasta: "/home/user/hg19.fa"
 genome_assembly_name: "hg19"
 
 # 0.4 Interaction matrix resolution
@@ -28,20 +28,21 @@ restriction_enzyme: "DpnII"
 #*** [OPTIONAL ANALYSES] ***
 # 0.6 Group analyses
 perform_grouped_analyses: true
-sample_metadata: "/home/s.gregoricchio/DATA_seb/Alex_endomitrium_project/HiC_tissues/analyses_SG/samples_info_Alex.txt"
+sample_metadata: "/home/user/HiC_analyses/samples_table.txt"
 
 # 0.7 Loop detection (10kb resolution suggested)
 detect_loops: true
 
 # 0.8 Compartments detection (>=100kb resolution suggested)
 detect_compartments: true
-dcHiC_repository_folder: "/home/s.gregoricchio/dcHiC/"
-minimal_resolution_compartments: 100
+dcHiC_repository_folder: "/home/user/dcHiC/"
+minimal_resolution_compartments: 5
 character_subsitution_dashes_and_points_sample_name: ""
-chr_filtering_string: "hap|gl|random|NC|hs|Y|M|X|mt"
+chr_filtering_string: "hap|gl|random|NC|hs|Y|M|mt"
 dcHiC_chr_threads: 4
 dcHiC_PCA_threads: 4
 dcHiC_analyses_type: "cis"
+
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
