@@ -868,7 +868,6 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
           └── <b><em>50kb</em>_resolution</b>
 </pre>
 
-
 <br/><br/>
 
 ### 01_fastQC_raw
