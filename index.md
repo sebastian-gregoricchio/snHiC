@@ -867,7 +867,9 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
           │   |           └── ...
           │   └── <em>Tumor</em>_vals.txt
           └── <b><em>50kb</em>_resolution</b>
+          
 </pre>
+
 
 <br/><br/>
 
