@@ -17,8 +17,6 @@
 ### Citation
 If you use this package, please cite:
 
-
-
 <div class="warning" style='padding:2.5%; background-color:#ffffee; color:#787878; margin-left:5%; margin-right:5%; border-radius:15px;'>
 <span>
 <font size="-0.5">
@@ -866,30 +864,63 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
 <br/><br/>
 
 ### 01_fastQC_raw
-This folder contains a the fastq quality control (fastQC) reports for each fastq file and a summary report of multiQC.
+This folder contains all the fastq quality control (fastQC) reports for each fastq file and a summary report from multiQC.
 
 <br/><br/>
 
-### 02_BAM
-When the reads are aligned onto the reference genome by bwa, the resulting SAM files are filtered for mapping quality (MAPQ) and the mithocondrial (suffix: woMT) reads are removed before sorting. Flagstat metrics is generated for each file and stored in the homonym folder.
+### 02_Alignements
+The fastq reads (R1 and R2) are aligned separately and for each sample two bam files are generated besides the standard out and error files in the contained in the log folder.
 
 <br/><br/>
 
-### 03_BAM / 03_BAM__not_generated
+### 03_BAM | 03_BAM__not_generated
+If required by the user, in this folder are contained the filtered bams files of the reads used to generate the Hi-C contact matrices.
+When the bams are not generated because not required, an empty folder named *03_BAM__not_generated* is used instead.
+
+### 04_Interaction_matrices
+This folder contains the "raw" Hi-C contact matrices (.h5 and .cool format) for each sample. Further, in the QC_matrices there are individual folders with the quality controls (QC) performed on each sample and an ALL_SAMPLES folder with all the QC combined in a multiQC-HiC report.
 
 
+### 05_Interaction_matrices_normalized
+Individual normalized matrices in .h5 format. This matrices are also used to generate correlation heatmaps and scatter plots available in the sample_correlation folder.
+
+
+### 06_Interaction_matrices_normalized_and_corrected
+In this folder three different subfolder are generated:
+* *median_absolute_deviation* (MAD): calculation of the MAD depending of the coverage per bin (and statistical threshold used for the matrices correction).
+* *diagnostic_plot*: histograms to show the distribution of the coverage per bin used to calculate the MADs.
+* *corrected_matrices*: Hi-C contact normalized and corrected matrices in .h5, .cool and (if required) .hicpro format.
+
+
+### 07_TADs_calling_HiCexplorer
+Topologically Associated Domains (TADs) files generated using HiCexplorer: domains and domain's boundaries regions, z-score matrices and TAD scores.
+
+
+### 08_Interaction_distances
+Plots of the distribution of the intra-chromosomal contact counts as function of the genomic distance.
+
+
+### 09_Loop_detection_HiCexplorer *[optional]*
+If required by the user, the folder contains .bedpe files (chr1 start1 end1 chr2 start2 end2) indicating the anchors/bases of the loops detected in each sample using HiCexplorer.
+
+
+### 10_Compartments_detection_dcHiC *[optional]*
+For each rsolution, when required, differential compartment analyses are performed using []`dcHiC`](https://www.nature.com/articles/s41467-022-34626-6). Comparisons are made depending on the groups indicated in the sample config file; samples are compared either all together (all groups) or two-by-two wise by group. Differential compartment analyses are written in the *DifferentialResult* folder in a folder by comparison. In each comparison subfolder can be found the bedGraphs and bigWigs with the unnormalized and quantile-normalized compartment scores as well as the IGV reports (*viz* directory). Importantly, in the main parental folder there are the `<condition>_chr_pc_selected.txt` files that show which principal component (PC) has been used to define the compartments per each chromosome per each sample/group.
+
+### 11_Grouped_analyses *[optional]*
+This folder contains the same analyses performed above but starting from matrices obtained by merging (sum) individual sample "raw" matrices by group (following the sample config table provided by the user).
 
 <br/><br/>
 
 -----------------
 ## Package history and releases
-A list of all releases and respective description of changes applied could be found [here](https://sebastian-gregoricchio.github.io/snakeATAC/NEWS).
+A list of all releases and respective description of changes applied could be found [here](https://sebastian-gregoricchio.github.io/snHiC/NEWS).
 
 ## Contact
-For any suggestion, bug fixing, commentary please report it in the [issues](https://github.com/sebastian-gregoricchio/snakeATAC/issues)/[request](https://github.com/sebastian-gregoricchio/snakeATAC/pulls) tab of this repository.
+For any suggestion, bug fixing, commentary please report it in the [issues](https://github.com/sebastian-gregoricchio/snHiC/issues)/[request](https://github.com/sebastian-gregoricchio/snHiC/pulls) tab of this repository.
 
 ## License
-This repository is under a [GNU General Public License (version 3)](https://sebastian-gregoricchio.github.io/Rseb/LICENSE.md/LICENSE).
+This repository is under a [GNU General Public License (version 3)](https://sebastian-gregoricchio.github.io/snHiC/LICENSE.md/LICENSE).
 
 <br/>
 
