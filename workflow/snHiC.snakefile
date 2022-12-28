@@ -23,6 +23,7 @@ def constraint_to(values: List[str]) -> str:
 
 ### working diirectory
 home_dir = os.path.join(config["output_directory"],"")
+shell('mkdir -p {home_dir}')
 workdir: home_dir
 
 ### get the unique samples names and other variables
@@ -489,7 +490,7 @@ rule E2_multiQC_report_for_HiC_matrices:
 
 
 # ----------------------------------------------------------------------------------------
-# Merging bins to make all the other resolution matrix 9if multiple)
+# Merging bins to make all the other resolution matrix (if multiple)
 if len(requested_resolutions) > 1 :
     rule E3_merging_interaction_matrix_bins_for_all_resolutions:
         input:
@@ -519,16 +520,17 @@ if len(requested_resolutions) > 1 :
 # Matrices normalization
 rule F1_matrices_normalization:
     input:
-        matrices_to_normalize = expand(os.path.join("04_Interaction_matrices/", ''.join(["{sample}_mapQ", str(config["mapQ_cutoff"]), "_{merged_res}kb.h5"])), sample = SAMPLENAMES, merged_res = NEW_RESOLUTIONS)
+        matrices_to_normalize = expand(os.path.join("04_Interaction_matrices/", ''.join(["{sample}_mapQ", str(config["mapQ_cutoff"]), "_{ALL_NEW_MATRIX_RESOLUTIONS}kb.h5"])), sample = SAMPLENAMES, allow_missing=True)
     output:
-        normalized_matrices = expand(os.path.join("05_Interaction_matrices_normalized/", ''.join(["{sample}_mapQ", str(config["mapQ_cutoff"]), "_{merged_res}kb_normalized.h5"])), sample = SAMPLENAMES, merged_res = NEW_RESOLUTIONS)
+        normalized_matrices = expand(os.path.join("05_Interaction_matrices_normalized/", ''.join(["{sample}_mapQ", str(config["mapQ_cutoff"]), "_{ALL_NEW_MATRIX_RESOLUTIONS}kb_normalized.h5"])), sample = SAMPLENAMES, allow_missing=True)
     params:
+        resolution = "{ALL_NEW_MATRIX_RESOLUTIONS}",
         normalization_method = config["normalization_method"]
     shell:
         """
         mkdir -p 05_Interaction_matrices_normalized/
 
-        printf '\033[1;36mNormalization of the matrices \\n\033[0m'
+        printf '\033[1;36mNormalization of {params.resolution}kb matrices \\n\033[0m'
 
         hicNormalize \
         --matrices {input.matrices_to_normalize} \
@@ -840,9 +842,9 @@ if (eval(str(config["perform_grouped_analyses"])) == True):
     # Grouped Matrices normalization
     rule M_grouped_matrices_normalization:
         input:
-            matrices_to_normalize = expand(os.path.join("11_Grouped_analyses/A_summed_matrices/", ''.join(["{group}_mapQ", str(config["mapQ_cutoff"]), "_{merged_res}kb.h5"])), group = groups, merged_res = NEW_RESOLUTIONS)
+            matrices_to_normalize = expand(os.path.join("11_Grouped_analyses/A_summed_matrices/", ''.join(["{group}_mapQ", str(config["mapQ_cutoff"]), "_{ALL_NEW_MATRIX_RESOLUTIONS}kb.h5"])), group = groups, allow_missing = True)
         output:
-            normalized_matrices = expand(os.path.join("11_Grouped_analyses/B_summed_matrices_normalized/", ''.join(["{group}_mapQ", str(config["mapQ_cutoff"]), "_{merged_res}kb_normalized.h5"])), group = groups, merged_res = NEW_RESOLUTIONS)
+            normalized_matrices = expand(os.path.join("11_Grouped_analyses/B_summed_matrices_normalized/", ''.join(["{group}_mapQ", str(config["mapQ_cutoff"]), "_{ALL_NEW_MATRIX_RESOLUTIONS}kb_normalized.h5"])), group = groups, allow_missing = True)
         params:
             normalization_dir = os.path.dirname("11_Grouped_analyses/B_summed_matrices_normalized/"),
             normalization_method = config["normalization_method"]
@@ -1206,6 +1208,8 @@ if (perform_compartment_analyses == True):
             dcHiC_analyses_type = config["dcHiC_analyses_type"],
             genome_name = config["genome_assembly_name"],
             differential_analyses_directory = "all_vs_all"
+        threads:
+            workflow.cores
         shell:
             """
             printf '\033[1;36mDetection compartments (single samples) for {params.resolution}kb resultion matrices (dcHiC)...\\n\033[0m'
@@ -1384,6 +1388,8 @@ if (perform_compartment_analyses == True):
             genome_name = config["genome_assembly_name"],
             resolution = "{COMPARTMENT_RESOLUTIONS}",
             script_dchicf_file = os.path.join(config["dcHiC_repository_folder"], "dchicf.r")
+        threads:
+            workflow.cores
         shell:
             """
             printf '\033[1;36m{params.resolution}kb: Performig compartmentalization analyses for paired combinations (dcHiC)...\\n\033[0m'
@@ -1596,6 +1602,8 @@ if (perform_compartment_analyses == True):
             dcHiC_analyses_type = config["dcHiC_analyses_type"],
             genome_name = config["genome_assembly_name"],
             differential_analyses_directory = "all_vs_all"
+        threads:
+            workflow.cores
         shell:
             """
             printf '\033[1;36mDetection compartments (grouped samples) for {params.resolution}kb resultion matrices (dcHiC)...\\n\033[0m'
@@ -1774,6 +1782,8 @@ if (perform_compartment_analyses == True):
             genome_name = config["genome_assembly_name"],
             resolution = "{COMPARTMENT_RESOLUTIONS}",
             script_dchicf_file = os.path.join(config["dcHiC_repository_folder"], "dchicf.r")
+        threads:
+            workflow.cores
         shell:
             """
             printf '\033[1;36m{params.resolution}kb: Performig compartmentalization analyses for paired combinations (dcHiC)...\\n\033[0m'
