@@ -216,7 +216,7 @@ Hereafter, the meaning of the different parameters is described.
 |*normalization_method*| Default: `'smallest'`. Possible choices: `'norm_range'`, `'smallest'`, `'multiplicative'`. Method to use for the matrices normalization. Values passed to [`hicNormalize`](https://hicexplorer.readthedocs.io/en/latest/content/tools/hicNormalize.html). |
 |*correction_method*| Default: `"ICE"`. Possible choices: `'ICE'`, `'KR'`. Method to use for the matrices correction. Values passed to [`hicCorrectMatrix`](https://hicexplorer.readthedocs.io/en/latest/content/tools/hicCorrectMatrix.html). |
 |*hicFindTADs_threads*| Default: `10`. Number of threads to be used to detect the TADs by [hicFindTADs](https://hicexplorer.readthedocs.io/en/latest/content/tools/hicFindTADs.html). |
-|*extra_findTAD_parameters*| Default: `'--thresholdComparisons 0.01'`. A string containing any additional parameter, separated by a space (e.g., '--paramA X --paramB Y'), to pass to [hicFindTADs](https://hicexplorer.readthedocs.io/en/latest/content/tools/hicFindTADs.html). |
+|*extra_findTAD_parameters*| Default: `'--thresholdComparisons 0.01'`. A string containing any additional parameter, separated by a space (e.g., '--paramA X --paramB Y'), to pass to [hicFindTADs](https://hicexplorer.readthedocs.io/en/latest/content/tools/hicFindTADs.html). |  
 |*hicDetectLoops_threads*| Default: `10`. Number of threads to be used to detect the TADs by [hicDetectLoops](https://hicexplorer.readthedocs.io/en/latest/content/tools/hicDetectLoops.html). |
 |*maxLoopDistance*| Default: `2000000`bp (2Mb). Maximum loop distance, in base-pairs (bp), to be used to detect loops by [hicDetectLoops](https://hicexplorer.readthedocs.io/en/latest/content/tools/hicDetectLoops.html). |
 |*loop_windowSize*| Default: `10`kb. The window size for the neighborhood region the peak is located in. All values from this region (exclude the values from the peak region) are tested against the peak region for significant difference. For more info see [hicDetectLoops](https://hicexplorer.readthedocs.io/en/latest/content/tools/hicDetectLoops.html). |
@@ -319,41 +319,41 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
   │   ├── <em>sampleA</em>_mapQ15_<em>50kb</em>.h5
   │   └── ...
   │
-  ├── <b>05_Interaction_matrices_<em>Normal</em>ized</b>
-  │   ├── <em>sampleA</em>_mapQ15_<em>100kb</em>_<em>Normal</em>ized.h5
-  │   ├── <em>sampleA</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized.h5
+  ├── <b>05_Interaction_matrices_Normalized</b>
+  │   ├── <em>sampleA</em>_mapQ15_<em>100kb</em>_Normalized.h5
+  │   ├── <em>sampleA</em>_mapQ15_<em>50kb</em>_Normalized.h5
   │   ├── ...
   │   └── <b>sample_correlation</b>
   │       ├── heatmap_correlation.pdf
   │       └── scatter_correlation.pdf
   │
-  ├── <b>06_Interaction_matrices_<em>Normal</em>ized_and_corrected</b>
+  ├── <b>06_Interaction_matrices_Normalized_and_corrected</b>
   │   ├── <b>corrected_matrices</b>
   │   │   ├── <b><em>sampleA</em></b>
   │   │   │   ├── <b>cool_format</b>
-  │   │   │   │   ├── <em>sampleA</em>_mapQ15_<em>100kb</em>_<em>Normal</em>ized_corrected.cool
-  │   │   │   │   └── <em>sampleA</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected.cool
+  │   │   │   │   ├── <em>sampleA</em>_mapQ15_<em>100kb</em>_Normalized_corrected.cool
+  │   │   │   │   └── <em>sampleA</em>_mapQ15_<em>50kb</em>_Normalized_corrected.cool
   │   │   │   ├── <b>h5_format</b>
-  │   │   │   │   ├── <em>sampleA</em>_mapQ15_<em>100kb</em>_<em>Normal</em>ized_corrected.h5
-  │   │   │   │   └── <em>sampleA</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected.h5
+  │   │   │   │   ├── <em>sampleA</em>_mapQ15_<em>100kb</em>_Normalized_corrected.h5
+  │   │   │   │   └── <em>sampleA</em>_mapQ15_<em>50kb</em>_Normalized_corrected.h5
   │   │   │   └── <b>hicpro_format</b>
-  │   │   │       ├── <em>sampleA</em>_mapQ15_<em>100kb</em>_<em>Normal</em>ized_corrected.hicpro
-  │   │   │       ├── <em>sampleA</em>_mapQ15_<em>100kb</em>_<em>Normal</em>ized_corrected_hicpro.bed
-  │   │   │       ├── <em>sampleA</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected.hicpro
-  │   │   │       └── <em>sampleA</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected_hicpro.bed
+  │   │   │       ├── <em>sampleA</em>_mapQ15_<em>100kb</em>_Normalized_corrected.hicpro
+  │   │   │       ├── <em>sampleA</em>_mapQ15_<em>100kb</em>_Normalized_corrected_hicpro.bed
+  │   │   │       ├── <em>sampleA</em>_mapQ15_<em>50kb</em>_Normalized_corrected.hicpro
+  │   │   │       └── <em>sampleA</em>_mapQ15_<em>50kb</em>_Normalized_corrected_hicpro.bed
   │   │   └── <b><em>sample...</em></b>
   │   │       └── ...
   │   ├── <b>diagnostic_plots</b>
-  │   │   ├── <em>sampleA</em>_<em>100kb</em>_<em>Normal</em>ized_diagnosticPlot.png
-  │   │   ├── <em>sampleA</em>_<em>50kb</em>_<em>Normal</em>ized_diagnosticPlot.png
+  │   │   ├── <em>sampleA</em>_<em>100kb</em>_Normalized_diagnosticPlot.png
+  │   │   ├── <em>sampleA</em>_<em>50kb</em>_Normalized_diagnosticPlot.png
   │   │   └── ...
   │   └── <b>median_absolute_deviation</b>
-  │       ├── <em>sampleA</em>_<em>100kb</em>_<em>Normal</em>ized_MedianAbsoluteDeviation.mad
-  │       ├── <em>sampleA</em>_<em>50kb</em>_<em>Normal</em>ized_MedianAbsoluteDeviation.mad
+  │       ├── <em>sampleA</em>_<em>100kb</em>_Normalized_MedianAbsoluteDeviation.mad
+  │       ├── <em>sampleA</em>_<em>50kb</em>_Normalized_MedianAbsoluteDeviation.mad
   │       ├── ...
   │       └── <b>thresholds</b>
-  │           ├── <em>sampleA</em>_<em>100kb</em>_<em>Normal</em>ized_thresholdValues.txt
-  │           ├── <em>sampleA</em>_<em>50kb</em>_<em>Normal</em>ized_thresholdValues.txt
+  │           ├── <em>sampleA</em>_<em>100kb</em>_Normalized_thresholdValues.txt
+  │           ├── <em>sampleA</em>_<em>50kb</em>_Normalized_thresholdValues.txt
   │           └── ...
   │
   ├── <b>07_TADs_calling_HiCexplorer</b>
@@ -416,7 +416,7 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
   │   │   │       └── <b>viz</b>
   │   │   │           └── <b>files</b>
   │   │   ├── <b>filtered_hicpro_beds</b>
-  │   │   │   ├── <em>sampleA</em>_mapQ15_<em>100kb</em>_<em>Normal</em>ized_corrected_hicpro_FILTERED.bed
+  │   │   │   ├── <em>sampleA</em>_mapQ15_<em>100kb</em>_Normalized_corrected_hicpro_FILTERED.bed
   │   │   │   └── ...
   │   │   ├── <b>hg19_1000000_goldenpathData</b>
   │   │   │   ├── cytoBand.txt.gz
@@ -568,7 +568,7 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
   │       │               │   └── <em>Tumor</em>.PC_compartments_sorted.bed
   │       │               └── intra_igv_pcQnm.html
   │       ├── <b>filtered_hicpro_beds</b>
-  │       │   ├── <em>sampleA</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected_hicpro_FILTERED.bed
+  │       │   ├── <em>sampleA</em>_mapQ15_<em>50kb</em>_Normalized_corrected_hicpro_FILTERED.bed
   │       │   └── ...
   │       ├── <b>hg19_500000_goldenpathData</b>
   │       │   ├── cytoBand.txt.gz
@@ -620,53 +620,53 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
       │   ├── <em>Tumor</em>_mapQ15_<em>100kb</em>.h5
       │   └── <em>Tumor</em>_mapQ15_<em>50kb</em>.h5
       |
-      ├── <b>B_summed_matrices_<em>Normal</em>ized</b>
-      │   ├── <em>Normal</em>_mapQ15_<em>100kb</em>_<em>Normal</em>ized.h5
-      │   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized.h5
-      │   ├── <em>Tumor</em>_mapQ15_<em>100kb</em>_<em>Normal</em>ized.h5
-      │   └── <em>Tumor</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized.h5
+      ├── <b>B_summed_matrices_Normalized</b>
+      │   ├── <em>Normal</em>_mapQ15_<em>100kb</em>_Normalized.h5
+      │   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_Normalized.h5
+      │   ├── <em>Tumor</em>_mapQ15_<em>100kb</em>_Normalized.h5
+      │   └── <em>Tumor</em>_mapQ15_<em>50kb</em>_Normalized.h5
       |
-      ├── <b>C_summed_matrices_<em>Normal</em>ized_and_corrected</b>
+      ├── <b>C_summed_matrices_Normalized_and_corrected</b>
       │   ├── <b>corrected_matrices</b>
       │   │   ├── <b><em>Normal</em></b>
       │   │   │   ├── <b>cool_format</b>
-      │   │   │   │   ├── <em>Normal</em>_mapQ15_<em>100kb</em>_<em>Normal</em>ized_corrected.cool
-      │   │   │   │   └── <em>Normal</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected.cool
+      │   │   │   │   ├── <em>Normal</em>_mapQ15_<em>100kb</em>_Normalized_corrected.cool
+      │   │   │   │   └── <em>Normal</em>_mapQ15_<em>50kb</em>_Normalized_corrected.cool
       │   │   │   ├── <b>h5_format</b>
-      │   │   │   │   ├── <em>Normal</em>_mapQ15_<em>100kb</em>_<em>Normal</em>ized_corrected.h5
-      │   │   │   │   └── <em>Normal</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected.h5
+      │   │   │   │   ├── <em>Normal</em>_mapQ15_<em>100kb</em>_Normalized_corrected.h5
+      │   │   │   │   └── <em>Normal</em>_mapQ15_<em>50kb</em>_Normalized_corrected.h5
       │   │   │   └── <b>hicpro_format</b>
-      │   │   │       ├── <em>Normal</em>_mapQ15_<em>100kb</em>_<em>Normal</em>ized_corrected.hicpro
-      │   │   │       ├── <em>Normal</em>_mapQ15_<em>100kb</em>_<em>Normal</em>ized_corrected_hicpro.bed
-      │   │   │       ├── <em>Normal</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected.hicpro
-      │   │   │       └── <em>Normal</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected_hicpro.bed
+      │   │   │       ├── <em>Normal</em>_mapQ15_<em>100kb</em>_Normalized_corrected.hicpro
+      │   │   │       ├── <em>Normal</em>_mapQ15_<em>100kb</em>_Normalized_corrected_hicpro.bed
+      │   │   │       ├── <em>Normal</em>_mapQ15_<em>50kb</em>_Normalized_corrected.hicpro
+      │   │   │       └── <em>Normal</em>_mapQ15_<em>50kb</em>_Normalized_corrected_hicpro.bed
       │   │   └── <b><em>Tumor</em></b>
       │   │       ├── <b>cool_format</b>
-      │   │       │   ├── <em>Tumor</em>_mapQ15_<em>100kb</em>_<em>Normal</em>ized_corrected.cool
-      │   │       │   └── <em>Tumor</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected.cool
+      │   │       │   ├── <em>Tumor</em>_mapQ15_<em>100kb</em>_Normalized_corrected.cool
+      │   │       │   └── <em>Tumor</em>_mapQ15_<em>50kb</em>_Normalized_corrected.cool
       │   │       ├── <b>h5_format</b>
-      │   │       │   ├── <em>Tumor</em>_mapQ15_<em>100kb</em>_<em>Normal</em>ized_corrected.h5
-      │   │       │   └── <em>Tumor</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected.h5
+      │   │       │   ├── <em>Tumor</em>_mapQ15_<em>100kb</em>_Normalized_corrected.h5
+      │   │       │   └── <em>Tumor</em>_mapQ15_<em>50kb</em>_Normalized_corrected.h5
       │   │       └── <b>hicpro_format</b>
-      │   │           ├── <em>Tumor</em>_mapQ15_<em>100kb</em>_<em>Normal</em>ized_corrected.hicpro
-      │   │           ├── <em>Tumor</em>_mapQ15_<em>100kb</em>_<em>Normal</em>ized_corrected_hicpro.bed
-      │   │           ├── <em>Tumor</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected.hicpro
-      │   │           └── <em>Tumor</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected_hicpro.bed
+      │   │           ├── <em>Tumor</em>_mapQ15_<em>100kb</em>_Normalized_corrected.hicpro
+      │   │           ├── <em>Tumor</em>_mapQ15_<em>100kb</em>_Normalized_corrected_hicpro.bed
+      │   │           ├── <em>Tumor</em>_mapQ15_<em>50kb</em>_Normalized_corrected.hicpro
+      │   │           └── <em>Tumor</em>_mapQ15_<em>50kb</em>_Normalized_corrected_hicpro.bed
       │   ├── <b>diagnostic_plots</b>
-      │   │   ├── <em>Normal</em>_<em>100kb</em>_<em>Normal</em>ized_diagnosticPlot.png
-      │   │   ├── <em>Normal</em>_<em>50kb</em>_<em>Normal</em>ized_diagnosticPlot.png
-      │   │   ├── <em>Tumor</em>_<em>100kb</em>_<em>Normal</em>ized_diagnosticPlot.png
-      │   │   └── <em>Tumor</em>_<em>50kb</em>_<em>Normal</em>ized_diagnosticPlot.png
+      │   │   ├── <em>Normal</em>_<em>100kb</em>_Normalized_diagnosticPlot.png
+      │   │   ├── <em>Normal</em>_<em>50kb</em>_Normalized_diagnosticPlot.png
+      │   │   ├── <em>Tumor</em>_<em>100kb</em>_Normalized_diagnosticPlot.png
+      │   │   └── <em>Tumor</em>_<em>50kb</em>_Normalized_diagnosticPlot.png
       │   └── <b>median_absolute_deviation</b>
-      │       ├── <em>Normal</em>_<em>100kb</em>_<em>Normal</em>ized_MedianAbsoluteDeviation.mad
-      │       ├── <em>Normal</em>_<em>50kb</em>_<em>Normal</em>ized_MedianAbsoluteDeviation.mad
+      │       ├── <em>Normal</em>_<em>100kb</em>_Normalized_MedianAbsoluteDeviation.mad
+      │       ├── <em>Normal</em>_<em>50kb</em>_Normalized_MedianAbsoluteDeviation.mad
       │       ├── <b>thresholds</b>
-      │       │   ├── <em>Normal</em>_<em>100kb</em>_<em>Normal</em>ized_thresholdValues.txt
-      │       │   ├── <em>Normal</em>_<em>50kb</em>_<em>Normal</em>ized_thresholdValues.txt
-      │       │   ├── <em>Tumor</em>_<em>100kb</em>_<em>Normal</em>ized_thresholdValues.txt
-      │       │   └── <em>Tumor</em>_<em>50kb</em>_<em>Normal</em>ized_thresholdValues.txt
-      │       ├── <em>Tumor</em>_<em>100kb</em>_<em>Normal</em>ized_MedianAbsoluteDeviation.mad
-      │       └── <em>Tumor</em>_<em>50kb</em>_<em>Normal</em>ized_MedianAbsoluteDeviation.mad
+      │       │   ├── <em>Normal</em>_<em>100kb</em>_Normalized_thresholdValues.txt
+      │       │   ├── <em>Normal</em>_<em>50kb</em>_Normalized_thresholdValues.txt
+      │       │   ├── <em>Tumor</em>_<em>100kb</em>_Normalized_thresholdValues.txt
+      │       │   └── <em>Tumor</em>_<em>50kb</em>_Normalized_thresholdValues.txt
+      │       ├── <em>Tumor</em>_<em>100kb</em>_Normalized_MedianAbsoluteDeviation.mad
+      │       └── <em>Tumor</em>_<em>50kb</em>_Normalized_MedianAbsoluteDeviation.mad
       |
       ├── <b>D_TADs_calling_HiCexplorer</b>
       │   ├── <b><em>Normal</em></b>
@@ -816,8 +816,8 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
           │   |               │   └── <em>Tumor</em>.PC_compartments_sorted.bed
           │   |               └── intra_igv_pcQnm.html
           │   ├── <b>filtered_hicpro_beds</b>
-          │   |   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected_hicpro_FILTERED.bed
-          │   |   └── <em>Tumor</em>_mapQ15_<em>50kb</em>_<em>Normal</em>ized_corrected_hicpro_FILTERED.bed
+          │   |   ├── <em>Normal</em>_mapQ15_<em>50kb</em>_Normalized_corrected_hicpro_FILTERED.bed
+          │   |   └── <em>Tumor</em>_mapQ15_<em>50kb</em>_Normalized_corrected_hicpro_FILTERED.bed
           │   ├── <b>hg19_500000_goldenpathData</b>
           │   |   ├── cytoBand.txt.gz
           │   |   ├── hg19.binned.bed
@@ -873,12 +873,10 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
 ### 01_fastQC_raw
 This folder contains all the fastq quality control (fastQC) reports for each fastq file and a summary report from multiQC.
 
-<br/><br/>
 
 ### 02_Alignements
 The fastq reads (R1 and R2) are aligned separately and for each sample two bam files are generated besides the standard out and error files in the contained in the log folder.
 
-<br/><br/>
 
 ### 03_BAM | 03_BAM__not_generated
 If required by the user, in this folder are contained the filtered bams files of the reads used to generate the Hi-C contact matrices.
