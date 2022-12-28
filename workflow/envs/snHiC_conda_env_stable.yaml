@@ -479,13 +479,13 @@ dependencies:
   - zlib=1.2.12=h7f8727e_2
   - zstd=1.5.2=ha4553b6_0
   - pip:
-    - coloredlogs==15.0.1
-    - colormath==3.0.0
-    - commonmark==0.9.1
-    - cytoolz==0.10.1
-    - humanfriendly==10.0
-    - lzstring==1.0.4
-    - markdown==3.4.1
-    - multiqc==1.12
-    - rich==12.5.1
-    - spectra==0.0.11
+      - coloredlogs==15.0.1
+      - colormath==3.0.0
+      - commonmark==0.9.1
+      - cytoolz==0.10.1
+      - humanfriendly==10.0
+      - lzstring==1.0.4
+      - markdown==3.4.1
+      - multiqc==1.12
+      - rich==12.5.1
+      - spectra==0.0.11
