@@ -43,15 +43,6 @@ dcHiC_chr_threads: 4
 dcHiC_PCA_threads: 4
 dcHiC_analyses_type: "cis"
 
-#--cthread=CTHREAD
-#                Number of threads to be used for parallel chromosome processing per sample Can be used using cis/trans section
-#                [default 1]
-#
-#
-#        --pthread=PTHREAD
-#                Number of threads to be used for pca calculation per chromosome per sample Can be used using cis/trans section
-#                [default 1]
-
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
