@@ -42,7 +42,7 @@ If you use this package, please cite:
 To install the pipeline it is required to download this repository and the installation of a conda environment is strongly recommended.
 Follow the steps below for the installation:
 * place yourself in the directory where the repository should be downloaded by typing `cd </target/folder>`
-* download the GitHub repository with `git clone https://github.com/sebastian-gregoricchio/snakeATAC`, or click on *Code > Download ZIP* on the [GitHub page](https://github.com/sebastian-gregoricchio/snakeATAC)
+* download the GitHub repository with `git clone https://github.com/sebastian-gregoricchio/snHiC`, or click on *Code > Download ZIP* on the [GitHub page](https://github.com/sebastian-gregoricchio/snHiC)
 * install the conda environment from the .yaml environment file contained in the repository:<br>
 `conda env create -f </target/folder>/snHiC/workflow/envs/snHiC_conda_env_stable.yaml`
 * activate the conda environment: `conda activate snHiC` (if the env is not activated the pipeline won't work properly)
