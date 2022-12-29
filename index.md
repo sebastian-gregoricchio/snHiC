@@ -599,7 +599,7 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
   │       │           ├── chr1.svd.rds
   │       │           ├── chr1.txt
   │       │           └── ...
-  │       ├── <b><em>sample...</em>
+  │       ├── <b><em>sample...</em></b>
   │       │   └── ...
   │       ├── <em>Tumor</em>_chr_pc_selected.txt
   │       ├── <em>Tumor</em>_clus.txt
