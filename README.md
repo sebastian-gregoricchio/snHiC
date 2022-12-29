@@ -165,6 +165,7 @@ Hereafter, the meaning of the different parameters is described.
 
 #### Experiment-specific section
 *Required parameters*
+
 | **Parameter** | **Description** |
 |----------------:|:-------------------|
 |*runs_directory*| The full path to the directory were the input fastq files are contained, e.g. `/home/user/HiC/00_runs/`. Importantly, the name of the files, deprived of the read suffix (e.g., *_R1*/*_R2*) and file extension (e.g., *.fastq.gz*) will be used as sample name.|
