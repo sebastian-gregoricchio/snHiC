@@ -242,7 +242,7 @@ For an experiment including 4 samples (sampleA-B-C-D) assigned to two groups (No
   │   ├── <em>sampleA</em>_R2_fastqc.zip
   │   └── ...
   │
-  ├── <b>02_Alignements
+  ├── <b>02_Alignements</b>
   │   ├── <b>log</b>
   │   │   ├── <em>sampleA</em>_R1_bwa-mem.err
   │   │   ├── <em>sampleA</em>_R1_bwa-mem.out
