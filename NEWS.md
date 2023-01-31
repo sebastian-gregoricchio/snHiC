@@ -2,7 +2,7 @@
 title: "changeLog"
 ---
 
-# snHiC [<img src="https://sebastian-gregoricchio.github.io/snHiC/snHiC_logo.svg" align="right" height = 150/>](https://sebastian-gregoricchio.github.io/snHiC)
+# snHiC [<img src="https://sebastian-gregoricchio.github.io/snHiC/resources/snHiC_logo.svg" align="right" height = 150/>](https://sebastian-gregoricchio.github.io/snHiC)
 ![update](https://badges.pufler.dev/updated/sebastian-gregoricchio/snHiC)
 [![forks](https://img.shields.io/github/forks/sebastian-gregoricchio/snHiC?style=social)](https://github.com/sebastian-gregoricchio/snHiC/fork)
 
