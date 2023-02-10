@@ -42,6 +42,7 @@ dependencies:
   - brotli=1.0.9=he6710b0_2
   - brotlipy=0.7.0=py39h27cfd23_1003
   - bwa=0.7.17=h7132678_9
+  - bwa-mem2=2.2.1=hd03093a_3
   - bwidget=1.9.11=1
   - bx-python=0.8.13=py39h6471ffd_1
   - bzip2=1.0.8=h7b6447c_0
