@@ -258,7 +258,7 @@ if not os.path.exists(''.join([re.sub(".gz", "", config["genome_fasta"], count=0
         shell:
             """
             printf '\033[1;36mGenerating the genome index...\\n\033[0m'
-            bwa index {input.genome}
+            $CONDA_PREFIX/bin/bwa-mem2 index {params.genome}
             samtools faidx {input.genome}
             printf '\033[1;36mGenome index done.\\n\033[0m'
             """
@@ -283,15 +283,15 @@ rule C_bwa_align:
     threads:
         config["bwa_threads"]
     log:
-        out = os.path.join("02_Alignements/log/{SAMPLES}{READS}_bwa-mem.out"),
-        err = os.path.join("02_Alignements/log/{SAMPLES}{READS}_bwa-mem.err")
+        out = os.path.join("02_Alignements/log/{SAMPLES}{READS}_bwa-mem2.out"),
+        err = os.path.join("02_Alignements/log/{SAMPLES}{READS}_bwa-mem2.err")
     shell:
         """
         mkdir -p {params.build_align}
 
         printf '\033[1;36m{params.sample}{params.read}: alignment of the reads...\\n\033[0m'
         echo 'Mapping of {params.sample}{params.read}:' > {log.out}
-        bwa mem -t {params.CPUs} -A1 -B4 -E50 -L0 {params.genome} {input.read} 2> {log.err} | samtools view -Shb - > {output.align} 2>> {log.err}
+        $CONDA_PREFIX/bin/bwa-mem2 mem -t {params.CPUs} -A1 -B4 -E50 -L0 {params.genome} {input.read} 2> {log.err} | samtools view -Shb - > {output.align} 2>> {log.err}
         """
 # ----------------------------------------------------------------------------------------
 
@@ -1207,12 +1207,15 @@ if (perform_compartment_analyses == True):
             dcHiC_PCA_threads = config['dcHiC_PCA_threads'],
             dcHiC_analyses_type = config["dcHiC_analyses_type"],
             genome_name = config["genome_assembly_name"],
-            differential_analyses_directory = "all_vs_all"
+            differential_analyses_directory = "all_vs_all",
+            log_dir = os.path.join(home_dir, "10_Compartments_detection_dcHiC/{COMPARTMENT_RESOLUTIONS}kb_resolution/dcHiC_logs/")
         threads:
             workflow.cores
         shell:
             """
             printf '\033[1;36mDetection compartments (single samples) for {params.resolution}kb resultion matrices (dcHiC)...\\n\033[0m'
+
+            mkdir -p {params.log_dir}
 
             cd {params.compartments_dir}
 
@@ -1222,7 +1225,7 @@ if (perform_compartment_analyses == True):
             --pcatype {params.dcHiC_analyses_type} \
             --dirovwt T \
             --cthread {params.dcHiC_chr_threads} \
-            --pthread {params.dcHiC_PCA_threads}
+            --pthread {params.dcHiC_PCA_threads} >& {params.log_dir}all_vs_all_single.sample_dcHiC.PCAs.log
 
 
             printf '\033[1;36mDetection compartments (single samples) for {params.resolution}kb resultion matrices (dcHiC)...\\n\033[0m'
@@ -1232,7 +1235,7 @@ if (perform_compartment_analyses == True):
             --file {params.dcHiC_config_file} \
             --pcatype select \
             --dirovwt T \
-            --genome {params.genome_name} \
+            --genome {params.genome_name} >& {params.log_dir}all_vs_all_single.sample_dcHiC.select.log
 
 
             printf '\033[1;36mDetection compartments (single samples) for {params.resolution}kb resultion matrices (dcHiC)...\\n\033[0m'
@@ -1243,7 +1246,7 @@ if (perform_compartment_analyses == True):
             --file {params.dcHiC_config_file} \
             --pcatype analyze \
             --dirovwt T \
-            --diffdir {params.differential_analyses_directory}
+            --diffdir {params.differential_analyses_directory} >& {params.log_dir}all_vs_all_single.sample_dcHiC.analyze.log
 
 
             printf '\033[1;36mDetection compartments (single samples) for {params.resolution}kb resultion matrices (dcHiC)...\\n\033[0m'
@@ -1255,7 +1258,7 @@ if (perform_compartment_analyses == True):
             --file {params.dcHiC_config_file} \
             --pcatype viz \
             --genome {params.genome_name} \
-            --diffdir {params.differential_analyses_directory}
+            --diffdir {params.differential_analyses_directory} >& {params.log_dir}all_vs_all_single.sample_dcHiC.viz.log
             """
     # ----------------------------------------------------------------------------------------
 
@@ -1387,12 +1390,15 @@ if (perform_compartment_analyses == True):
             compartments_dir = os.path.dirname(os.path.join(home_dir, "10_Compartments_detection_dcHiC/{COMPARTMENT_RESOLUTIONS}kb_resolution/")),
             genome_name = config["genome_assembly_name"],
             resolution = "{COMPARTMENT_RESOLUTIONS}",
-            script_dchicf_file = os.path.join(config["dcHiC_repository_folder"], "dchicf.r")
+            script_dchicf_file = os.path.join(config["dcHiC_repository_folder"], "dchicf.r"),
+            log_folder = os.path.join(home_dir, "10_Compartments_detection_dcHiC/{COMPARTMENT_RESOLUTIONS}kb_resolution/dcHiC_logs/")
         threads:
             workflow.cores
         shell:
             """
             printf '\033[1;36m{params.resolution}kb: Performig compartmentalization analyses for paired combinations (dcHiC)...\\n\033[0m'
+
+            mkdir -p {params.log_folder}
 
             comboA=({params.comboA})
             comboB=({params.comboB})
@@ -1410,13 +1416,13 @@ if (perform_compartment_analyses == True):
                 --file $configFile \
                 --pcatype analyze \
                 --dirovwt T \
-                --diffdir ${{combolist[i]}}
+                --diffdir ${{combolist[i]}} >& {params.log_folder}${{comboA[i]}}_${{comboB[i]}}_dcHiC.analyze.log
 
                 $CONDA_PREFIX/bin/Rscript {params.script_dchicf_file} \
                 --file $configFile \
                 --pcatype viz \
                 --genome {params.genome_name} \
-                --diffdir ${{combolist[i]}}
+                --diffdir ${{combolist[i]}} >& {params.log_folder}${{comboA[i]}}_${{comboB[i]}}_dcHiC.viz.log
             done
             """
     # ----------------------------------------------------------------------------------------
@@ -1601,12 +1607,15 @@ if (perform_compartment_analyses == True):
             dcHiC_PCA_threads = config['dcHiC_PCA_threads'],
             dcHiC_analyses_type = config["dcHiC_analyses_type"],
             genome_name = config["genome_assembly_name"],
-            differential_analyses_directory = "all_vs_all"
+            differential_analyses_directory = "all_vs_all",
+            log_folder = os.path.join(home_dir, "11_Grouped_analyses/F_Compartments_detection_dcHiC/{COMPARTMENT_RESOLUTIONS}kb_resolution/dcHiC_logs/")
         threads:
             workflow.cores
         shell:
             """
             printf '\033[1;36mDetection compartments (grouped samples) for {params.resolution}kb resultion matrices (dcHiC)...\\n\033[0m'
+
+            mkdir -p {params.log_folder}
 
             cd {params.compartments_dir}
 
@@ -1616,7 +1625,7 @@ if (perform_compartment_analyses == True):
             --pcatype {params.dcHiC_analyses_type} \
             --dirovwt T \
             --cthread {params.dcHiC_chr_threads} \
-            --pthread {params.dcHiC_PCA_threads}
+            --pthread {params.dcHiC_PCA_threads} >& {params.log_folder}all_vs_all_grouped_dcHiC.PCAs.log
 
 
             printf '\033[1;36mDetection compartments (grouped samples) for {params.resolution}kb resultion matrices (dcHiC)...\\n\033[0m'
@@ -1626,7 +1635,7 @@ if (perform_compartment_analyses == True):
             --file {params.dcHiC_config_file} \
             --pcatype select \
             --dirovwt T \
-            --genome {params.genome_name} \
+            --genome {params.genome_name} >& {params.log_folder}all_vs_all_grouped_dcHiC.select.log
 
 
             printf '\033[1;36mDetection compartments (grouped samples) for {params.resolution}kb resultion matrices (dcHiC)...\\n\033[0m'
@@ -1637,7 +1646,7 @@ if (perform_compartment_analyses == True):
             --file {params.dcHiC_config_file} \
             --pcatype analyze \
             --dirovwt T \
-            --diffdir {params.differential_analyses_directory}
+            --diffdir {params.differential_analyses_directory} >& {params.log_folder}all_vs_all_grouped_dcHiC.analyze.log
 
 
             printf '\033[1;36mDetection compartments (grouped samples) for {params.resolution}kb resultion matrices (dcHiC)...\\n\033[0m'
@@ -1649,7 +1658,7 @@ if (perform_compartment_analyses == True):
             --file {params.dcHiC_config_file} \
             --pcatype viz \
             --genome {params.genome_name} \
-            --diffdir {params.differential_analyses_directory}
+            --diffdir {params.differential_analyses_directory} >& {params.log_folder}all_vs_all_grouped_dcHiC.viz.log
             """
     # ----------------------------------------------------------------------------------------
 
@@ -1781,7 +1790,8 @@ if (perform_compartment_analyses == True):
             compartments_dir = os.path.dirname(os.path.join(home_dir, "11_Grouped_analyses/F_Compartments_detection_dcHiC/{COMPARTMENT_RESOLUTIONS}kb_resolution/")),
             genome_name = config["genome_assembly_name"],
             resolution = "{COMPARTMENT_RESOLUTIONS}",
-            script_dchicf_file = os.path.join(config["dcHiC_repository_folder"], "dchicf.r")
+            script_dchicf_file = os.path.join(config["dcHiC_repository_folder"], "dchicf.r"),
+            log_folder = os.path.join(home_dir, "11_Grouped_analyses/F_Compartments_detection_dcHiC/{COMPARTMENT_RESOLUTIONS}kb_resolution/dcHiC_logs/")
         threads:
             workflow.cores
         shell:
@@ -1791,6 +1801,8 @@ if (perform_compartment_analyses == True):
             comboA=({params.comboA})
             comboB=({params.comboB})
             combolist=({params.all_combos})
+
+            mkdir -p {params.log_folder}
 
             for i in $(seq 0 $[${{#combolist[@]}} - 1])
             do
@@ -1804,13 +1816,13 @@ if (perform_compartment_analyses == True):
                 --file $configFile \
                 --pcatype analyze \
                 --dirovwt T \
-                --diffdir ${{combolist[i]}}
+                --diffdir ${{combolist[i]}} >& {params.log_folder}${{comboA[i]}}_${{comboB[i]}}_grouped_dcHiC.analyze.log
 
                 $CONDA_PREFIX/bin/Rscript {params.script_dchicf_file} \
                 --file $configFile \
                 --pcatype viz \
                 --genome {params.genome_name} \
-                --diffdir ${{combolist[i]}}
+                --diffdir ${{combolist[i]}} >& {params.log_folder}${{comboA[i]}}_${{comboB[i]}}_grouped_dcHiC.viz.log
             done
             """
     # ----------------------------------------------------------------------------------------
