@@ -1,0 +1,5 @@
+sample	group
+MDAPCA2a_rep1	MDAPCA2a
+MDAPCA2a_rep2	MDAPCA2a
+VCaP_rep1	VCaP
+VCaP_rep2	VCaP
