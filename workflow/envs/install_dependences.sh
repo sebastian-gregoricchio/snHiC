@@ -14,4 +14,4 @@ sed 's/import straw/import hicstraw as straw/' $1/lib/python3.9/site-packages/se
 
 echo ''
 echo '     >>> SELFISH has been fixed <<<'
-echo '     >>> dcHiC, stripeDiff, GENOVA and HiCPlotter are installed <<<'
+echo '     >>> dcHiC, GENOVA and HiCPlotter are installed <<<'
