@@ -11,7 +11,10 @@ benchmark_summary =
     summary_tb =
       data.frame(dplyr::mutate(do.call(rbind, tb_list),
                                process = basename(tables)) %>%
-                   tidyr::separate(col = process, into = c("Rule", "Step"), sep = "-") %>%
+                   tidyr::separate(col = process,
+                                   into = c("Rule", "Step"),
+                                   sep = "-",
+                                   fill = "right") %>%
                    dplyr::mutate(Rule = gsub("[.]tsv","",Rule),
                                  Step = gsub("[.]tsv","",Step)) %>%
                    dplyr::group_by(Rule) %>%
