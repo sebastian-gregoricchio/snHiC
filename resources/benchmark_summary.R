@@ -1,5 +1,5 @@
 benchmark_summary = 
-  function(bechnmark_dir) {
+  function(benchmark_dir) {
     require("dplyr")
     require("lubridate")
     
