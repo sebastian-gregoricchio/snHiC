@@ -45,7 +45,7 @@ loops:
 # 0.10 Compartments detection
 compartments:
   detect_compartments: true
-  minimal_resolution_compartments: 10
+  minimal_resolution_compartments: 5
   dcHiC_analyses_type: "cis"
 
 # 0.11 Perform differential analyses
