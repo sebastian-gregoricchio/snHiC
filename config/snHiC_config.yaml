@@ -39,8 +39,8 @@ groups:
 # 0.9 Loop detection (10kb resolution suggested)
 loops:
   detect_loops: true
-  max_resolution_loops: 20 # kb
   loop_caller: "HiCexplorer" # or "mustache"
+  max_resolution_loops: 20 # kb
 
 # 0.10 Compartments detection
 compartments:
