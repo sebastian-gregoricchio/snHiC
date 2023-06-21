@@ -195,7 +195,7 @@ if (eval(str(config["perform_stripes_analyses"])) == True):
 else:
     stripes_single = []
     stripes_group = []
-    MAX_STRIPES_RESOLUTIONS = NEW_RESOLUTIONS[0]
+    MAX_STRIPES_RESOLUTIONS = NEW_RESOLUTIONS
 
 
 
