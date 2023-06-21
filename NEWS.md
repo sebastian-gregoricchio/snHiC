@@ -7,7 +7,7 @@ title: "changeLog"
 [![forks](https://img.shields.io/github/forks/sebastian-gregoricchio/snHiC?style=social)](https://github.com/sebastian-gregoricchio/snHiC/fork)
 
 
-#### [v0.2.0](https://github.com/sebastian-gregoricchio/snHiC/releases/tag/0.2.0) - June 14<sup>th</sup> 2023
+#### [v0.2.0](https://github.com/sebastian-gregoricchio/snHiC/releases/tag/0.2.0) - June 21<sup>st</sup> 2023
 * New analyses implemented: Tad calling also by `GENOVA`, Loop detection also by `Mustache`, stripes detection by `STRIPENN`, differential contacts caling by `SELFISH`.
 * Yaml environment updated
 * Providing of a bash script for the installation, fixing and configuration of packages/softwares not included in the yaml file
@@ -15,7 +15,7 @@ title: "changeLog"
 * Implementation of the becnhmarking in the snakemake pipeline
 * Re-formatting and update of the config file
 * Providing of testa fastq files as well as resulting outputs
-* Pipeline has been published on *Bioinformatics Advances*
+* Pipeline has been published on *Bioinformatics Advances* (DOI: <a href="https://doi.org/10.1093/bioadv/vbad080">10.1093/bioadv/vbad080</a>)
 
 
 #### [v0.1.1](https://github.com/sebastian-gregoricchio/snHiC/releases/tag/0.1.1) - February 10<sup>th</sup> 2023
