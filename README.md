@@ -15,7 +15,7 @@
 
 
 ### Citation
-If you use this package, please cite:
+If you use this pipeline, please cite:
 
 <div class="warning" style='padding:2.5%; background-color:#ffffee; color:#787878; margin-left:5%; margin-right:5%; border-radius:15px;'>
 <span>
