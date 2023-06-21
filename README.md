@@ -23,7 +23,7 @@ If you use this pipeline, please cite:
 
 <div style="margin-left:2%; margin-right:2%; text-align: justify">
 S. Gregoricchio & W. Zwart. "<i>snHiC</i>: a complete and simplified snakemake pipeline for grouped Hi-C data analysis". <br>
-<i>Bioinformatics</i> Adavances*, 2023 <br>
+<i>Bioinformatics Adavances</i>, 2023 <br>
 DOI: <a href="https://doi.org/10.1093/bioadv/vbad080">10.1093/bioadv/vbad080</a>
 </div>
 </font>
