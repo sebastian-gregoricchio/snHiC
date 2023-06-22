@@ -1,5 +1,6 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite this publication:"
+message: "If you use this pipeline, please cite this publication:"
+entry: "Article"
 authors:
 - family-names: "Gregoricchio"
   given-names: "Sebastian"
@@ -8,7 +9,8 @@ authors:
   given-names: "Wilbert"
   orcid: "https://orcid.org/0000-0002-9823-7289"
 title: "snHiC: a complete and simplified snakemake pipeline for grouped Hi-C data analysis"
-version: 0.2.0
+journal: "Bioinformatics Adavances"
+publisher: "Oxford University Press"
 doi: 10.1093/bioadv/vbad080
-date-released: 2023-06-21
+year: 2023
 url: "https://doi.org/10.1093/bioadv/vbad080"
