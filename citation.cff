@@ -1,20 +1,27 @@
-citHeader("To cite snHiC in publications use:")
-
-citEntry(
-  entry     = "Article",
-  title     = "snHiC: a complete and simplified snakemake pipeline for grouped Hi-C data analysis",
-  author    = c(person("Sebastian", "Gregoricchio", role = c("aut", "cre")),
-                person("Wilbert", "Zwart", role = "aut")),
-  journal   = "Bioinformatics Advances",
-  publisher = "Oxford University Press",
-  year      = "2023",
-  volume    = "X",
-  number    = "X",
-  doi       = "10.1093/bioadv/vbad080",
-  url       = "https://doi.org/10.1093/bioadv/vbad080",
-  textVersion = paste(
-   "Gregoricchio and Zwart (2023)",
-   "snHiC: a complete and simplified snakemake pipeline for grouped Hi-C data analysis",
-   "Bioinformatics Advances"
-  )
-)
+cff-version: 1.2.0
+message: "If you use snHiC, please cite this publication:"
+authors:
+- family-names: "Gregoricchio"
+  given-names: "Sebastian"
+  orcid: "https://orcid.org/0000-0001-9209-5403"
+- family-names: "Zwart"
+  given-names: "Wilbert"
+  orcid: "https://orcid.org/0000-0002-9823-7289"
+preferred-citation:
+  authors:
+  - family-names: "Gregoricchio"
+    given-names: "Sebastian"
+    orcid: "https://orcid.org/0000-0001-9209-5403"
+  - family-names: "Zwart"
+    given-names: "Wilbert"
+    orcid: "https://orcid.org/0000-0002-9823-7289"
+  title: "snHiC: a complete and simplified snakemake pipeline for grouped Hi-C data analysis"
+  type: article
+  doi: 10.1093/bioadv/vbad080
+  year: 2023
+  url: https://doi.org/10.1093/bioadv/vbad080
+  journal: "Bioinformatics Adavances"
+title: "snHiC: a complete and simplified snakemake pipeline for grouped Hi-C data analysis"
+doi: 10.1093/bioadv/vbad080
+year: 2023
+url: https://doi.org/10.1093/bioadv/vbad080
