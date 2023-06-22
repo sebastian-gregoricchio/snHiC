@@ -1,0 +1,20 @@
+citHeader("To cite snHiC in publications use:")
+
+citEntry(
+  entry     = "Article",
+  title     = "snHiC: a complete and simplified snakemake pipeline for grouped Hi-C data analysis",
+  author    = c(person("Sebastian", "Gregoricchio", role = c("aut", "cre")),
+                person("Wilbert", "Zwart", role = "aut")),
+  journal   = "Bioinformatics Advances",
+  publisher = "Oxford University Press",
+  year      = "2023",
+  volume    = "X",
+  number    = "X",
+  doi       = "10.1093/bioadv/vbad080",
+  url       = "https://doi.org/10.1093/bioadv/vbad080",
+  textVersion = paste(
+   "Gregoricchio and Zwart (2023)",
+   "snHiC: a complete and simplified snakemake pipeline for grouped Hi-C data analysis",
+   "Bioinformatics Advances"
+  )
+)
