@@ -20,7 +20,7 @@ preferred-citation:
   doi: 10.1093/bioadv/vbad080
   year: 2023
   url: https://doi.org/10.1093/bioadv/vbad080
-  journal: "Bioinformatics Adavances"
+  journal: "Bioinformatics Advances"
 title: "snHiC: a complete and simplified snakemake pipeline for grouped Hi-C data analysis"
 doi: 10.1093/bioadv/vbad080
 year: 2023
