@@ -1,16 +1,10 @@
-cff-version: 1.2.0
-message: "If you use this pipeline, please cite this publication:"
-entry: "Article"
-authors:
-- family-names: "Gregoricchio"
-  given-names: "Sebastian"
-  orcid: "https://orcid.org/0000-0001-9209-5403"
-- family-names: "Zwart"
-  given-names: "Wilbert"
-  orcid: "https://orcid.org/0000-0002-9823-7289"
-title: "snHiC: a complete and simplified snakemake pipeline for grouped Hi-C data analysis"
-journal: "Bioinformatics Adavances"
-publisher: "Oxford University Press"
-doi: 10.1093/bioadv/vbad080
-year: 2023
-url: "https://doi.org/10.1093/bioadv/vbad080"
+@article{
+  author = {Sebastian, Gregoricchio and Wilbert, Zwart},
+  doi = {10.1093/bioadv/vbad080},
+  month = {06},
+  journal = {Bioinformatics Advances},
+  publisher = {Oxford University Press},
+  title = {{snHiC: a complete and simplified snakemake pipeline for grouped Hi-C data analysis}},
+  url = {https://doi.org/10.1093/bioadv/vbad080},
+  year = {2023}
+}
