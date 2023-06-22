@@ -123,7 +123,7 @@ if (call_loops == True):
         else:
             loops_group = []
     else:
-        loops_single = expand(os.path.join("09_Loop_detection_mustache/{sample}/", ''.join(["{sample}_mapQ", str(config["mapQ_cutoff"]), "_{resolution}kb_loops.bedpe"])), sample = SAMPLENAMES, resolution=[str(x) for x in MAX_LOOPS_RESOLUTIONS])
+        loops_single = expand(os.path.join("09_Loop_detection_Mustache/{sample}/", ''.join(["{sample}_mapQ", str(config["mapQ_cutoff"]), "_{resolution}kb_loops.bedpe"])), sample = SAMPLENAMES, resolution=[str(x) for x in MAX_LOOPS_RESOLUTIONS])
         if (eval(str(config["groups"]["perform_grouped_analyses"])) == True):
             loops_group = expand(os.path.join("12_Grouped_analyses/E_Loop_detection_mustache/{group}/", ''.join(["{group}_mapQ", str(config["mapQ_cutoff"]), "_{merged_res}kb_loops.bedpe"])), group = groups, merged_res = MAX_LOOPS_RESOLUTIONS)
         else:
@@ -1398,16 +1398,16 @@ else:
             input:
                 cool_matrix_corrected = os.path.join("06_Interaction_matrices_normalized_and_corrected/corrected_matrices/{SAMPLES}/cool_format/", ''.join(["{SAMPLES}_mapQ", str(config["mapQ_cutoff"]), "_{LOOPS_RESOLUTIONS}kb_normalized_corrected.cool"]))
             output:
-                loops_bedpe = os.path.join("09_Loop_detection_mustache/", ''.join(["{SAMPLES}_mapQ", str(config["mapQ_cutoff"]), "_{LOOPS_RESOLUTIONS}kb_loops.bedpe"]))
+                loops_bedpe = os.path.join("09_Loop_detection_Mustache/{SAMPLES}/", ''.join(["{SAMPLES}_mapQ", str(config["mapQ_cutoff"]), "_{LOOPS_RESOLUTIONS}kb_loops.bedpe"]))
             params:
-                loops_dir = os.path.dirname("09_Loop_detection_mustache/log/"),
+                loops_dir = os.path.dirname("09_Loop_detection_Mustache/log/"),
                 sample = "{SAMPLES}",
                 resolution = "{LOOPS_RESOLUTIONS}",
                 pThreshold = str(config["mustache_params"]["pThreshold"]),
                 extra_params = str(config["mustache_params"]["extra_params"])
             log:
-                out = os.path.join("09_Loop_detection_mustache/log/", ''.join(["{SAMPLES}_mapQ", str(config["mapQ_cutoff"]), "_{LOOPS_RESOLUTIONS}kb_loop.detection.out"])),
-                err = os.path.join("09_Loop_detection_mustache/log/", ''.join(["{SAMPLES}_mapQ", str(config["mapQ_cutoff"]), "_{LOOPS_RESOLUTIONS}kb_loop.detectiong.err"]))
+                out = os.path.join("09_Loop_detection_Mustache/log/", ''.join(["{SAMPLES}_mapQ", str(config["mapQ_cutoff"]), "_{LOOPS_RESOLUTIONS}kb_loop.detection.out"])),
+                err = os.path.join("09_Loop_detection_Mustache/log/", ''.join(["{SAMPLES}_mapQ", str(config["mapQ_cutoff"]), "_{LOOPS_RESOLUTIONS}kb_loop.detectiong.err"]))
             threads:
                 math.floor(workflow.cores/5)
             benchmark:
@@ -1439,7 +1439,7 @@ else:
             input:
                 cool_matrix_corrected = os.path.join("12_Grouped_analyses/C_summed_matrices_normalized_and_corrected/corrected_matrices/{GROUPS}/cool_format/", ''.join(["{GROUPS}_mapQ", str(config["mapQ_cutoff"]), "_{LOOPS_RESOLUTIONS}kb_normalized_corrected.cool"]))
             output:
-                loops_bedpe = os.path.join("12_Grouped_analyses/E_Loop_detection_mustache/", ''.join(["{GROUPS}_mapQ", str(config["mapQ_cutoff"]), "_{LOOPS_RESOLUTIONS}kb_loops.bedpe"]))
+                loops_bedpe = os.path.join("12_Grouped_analyses/E_Loop_detection_mustache/{GROUPS}/", ''.join(["{GROUPS}_mapQ", str(config["mapQ_cutoff"]), "_{LOOPS_RESOLUTIONS}kb_loops.bedpe"]))
             params:
                 loops_dir = os.path.dirname("12_Grouped_analyses/E_Loop_detection_mustache/log/"),
                 sample = "{GROUPS}",
@@ -1473,7 +1473,7 @@ else:
                 """
         # ----------------------------------------------------------------------------------------
     else:
-        shell("mkdir -p 09_Loop_detection_mustache_notPerformed/")
+        shell("mkdir -p 09_Loop_detection_Mustache_notPerformed/")
         if (eval(str(config["groups"]["perform_grouped_analyses"])) == True):
             shell("mkdir -p 12_Grouped_analyses/E_Loop_detection_mustache_notPerformed/")
 
