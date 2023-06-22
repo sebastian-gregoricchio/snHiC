@@ -123,9 +123,9 @@ if (call_loops == True):
         else:
             loops_group = []
     else:
-        loops_single = expand(os.path.join("09_Loop_detection_Mustache/{sample}/", ''.join(["{sample}_mapQ", str(config["mapQ_cutoff"]), "_{resolution}kb_loops.bedpe"])), sample = SAMPLENAMES, resolution=[str(x) for x in MAX_LOOPS_RESOLUTIONS])
+        loops_single = expand(os.path.join("09_Loop_detection_Mustache/{sample}/", ''.join(["{sample}_mapQ", str(config["mapQ_cutoff"]), "_{resolution}kb_loops.bedpe"])), sample = SAMPLENAMES, resolution=str(MAX_LOOPS_RESOLUTIONS[0]))
         if (eval(str(config["groups"]["perform_grouped_analyses"])) == True):
-            loops_group = expand(os.path.join("12_Grouped_analyses/E_Loop_detection_mustache/{group}/", ''.join(["{group}_mapQ", str(config["mapQ_cutoff"]), "_{merged_res}kb_loops.bedpe"])), group = groups, merged_res = MAX_LOOPS_RESOLUTIONS)
+            loops_group = expand(os.path.join("12_Grouped_analyses/E_Loop_detection_mustache/{group}/", ''.join(["{group}_mapQ", str(config["mapQ_cutoff"]), "_{merged_res}kb_loops.bedpe"])), group = groups, merged_res = str(MAX_LOOPS_RESOLUTIONS[0]))
         else:
             loops_group = []
 else:
@@ -227,7 +227,7 @@ wildcard_constraints:
     ALL_NEW_MATRIX_RESOLUTIONS = constraint_to([str(x) for x in NEW_RESOLUTIONS]), # to get all matrices resolutions for normalization/correction
     COMPARTMENT_RESOLUTIONS = MIN_RESOLUTIONS, # to filter all matrices resolutions for compartment calling
     STRIPES_RESOLUTIONS = MAX_STRIPES_RESOLUTIONS[0], # to filter all matrices resolutions for stripes calling
-    LOOPS_RESOLUTIONS = constraint_to([str(x) for x in MAX_LOOPS_RESOLUTIONS]), # to filter all matrices resolutions for loops calling
+    LOOPS_RESOLUTIONS = MAX_LOOPS_RESOLUTIONS[0], # to filter all matrices resolutions for loops calling
     GROUPS = constraint_to(groups),
     COMBOS = constraint_to(combo_list)
 
