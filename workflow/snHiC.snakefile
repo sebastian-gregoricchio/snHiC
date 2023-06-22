@@ -198,6 +198,15 @@ else:
     MAX_STRIPES_RESOLUTIONS = NEW_RESOLUTIONS
 
 
+# Define exceptions for single sample analyses
+if (len(SAMPLENAMES) > 1):
+    heatmap_plot = "05_Interaction_matrices_normalized/sample_correlation/heatmap_correlation.pdf"
+    scatter_plot = "05_Interaction_matrices_normalized/sample_correlation/scatter_correlation.pdf"
+else:
+    heatmap_plot = []
+    scatter_plot = []
+
+
 
 # Define the rescriction sites table
 restriction_table = pd.DataFrame({'Enzyme': ['DpnII', 'MboI', 'NlaIII', 'Csp6I', 'CviQI', 'HindIII', 'EcoRI', 'BamHI', 'BglII', 'Sau3AI', 'Arima_4combo'],
@@ -249,8 +258,8 @@ rule AAA_initialization:
         new_matrices = new_matrix,
         multiQC_report_matrices = "04_Interaction_matrices/QC_matrices/ALL_SAMPLES/multiQC_matrices/multiqc_report.html",
         normalized_matrices = expand(os.path.join("05_Interaction_matrices_normalized/", ''.join(["{sample}_mapQ", str(config["mapQ_cutoff"]), "_{resolution}kb_normalized.h5"])), sample = SAMPLENAMES, resolution=[str(x) for x in NEW_RESOLUTIONS]),
-        heatmap_plot = "05_Interaction_matrices_normalized/sample_correlation/heatmap_correlation.pdf",
-        scatter_plot = "05_Interaction_matrices_normalized/sample_correlation/scatter_correlation.pdf",
+        heatmap_plot = heatmap_plot,
+        scatter_plot = scatter_plot,
         h5_matrix_corrected_single_sample = expand(os.path.join("06_Interaction_matrices_normalized_and_corrected/corrected_matrices/{sample}/h5_format/", ''.join(["{sample}_mapQ", str(config["mapQ_cutoff"]), "_{resolution}kb_normalized_corrected.h5"])), sample = SAMPLENAMES, resolution=[str(x) for x in NEW_RESOLUTIONS]),
         cool_matrix_corrected_single_sample = expand(os.path.join("06_Interaction_matrices_normalized_and_corrected/corrected_matrices/{sample}/cool_format/", ''.join(["{sample}_mapQ", str(config["mapQ_cutoff"]), "_{resolution}kb_normalized_corrected.cool"])), sample = SAMPLENAMES, resolution=[str(x) for x in NEW_RESOLUTIONS]),
         #hicpro_matrix_corrected_single_sample = expand(os.path.join("06_Interaction_matrices_normalized_and_corrected/corrected_matrices/{sample}/hicpro_format/", ''.join(["{sample}_mapQ", str(config["mapQ_cutoff"]), "_{resolution}kb_normalized_corrected.hicpro"])), sample = SAMPLENAMES, resolution=[str(x) for x in NEW_RESOLUTIONS]),
