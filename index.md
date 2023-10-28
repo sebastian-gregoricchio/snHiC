@@ -29,7 +29,9 @@ If you use this package, please cite:
 <font size="-0.5">
 
 <div style="margin-left:2%; margin-right:2%; text-align: justify">
-*--- No publication associated yet ---*
+S. Gregoricchio & W. Zwart. "<i>snHiC</i>: a complete and simplified snakemake pipeline for grouped Hi-C data analysis". <br>
+<i>Bioinformatics Adavances</i>, Volume 3, Issue 1, 2023, vbad080 <br>
+DOI: <a href="https://doi.org/10.1093/bioadv/vbad080">10.1093/bioadv/vbad080</a>
 </div>
 </font>
 
