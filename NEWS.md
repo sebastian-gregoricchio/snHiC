@@ -7,6 +7,10 @@ title: "changeLog"
 [![forks](https://img.shields.io/github/forks/sebastian-gregoricchio/snHiC?style=social)](https://github.com/sebastian-gregoricchio/snHiC/fork)
 
 
+#### [v0.2.1](https://github.com/sebastian-gregoricchio/snHiC/releases/tag/0.2.1) - August 3<sup>rd</sup> 2024
+* Added Zenodo doi.
+
+
 #### [v0.2.0](https://github.com/sebastian-gregoricchio/snHiC/releases/tag/0.2.0) - June 21<sup>st</sup> 2023
 * New analyses implemented: Tad calling also by `GENOVA`, Loop detection also by `Mustache`, stripes detection by `STRIPENN`, differential contacts caling by `SELFISH`.
 * Yaml environment updated
