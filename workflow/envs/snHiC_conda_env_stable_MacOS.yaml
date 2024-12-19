@@ -1,4 +1,4 @@
-name: snHiC_revision
+name: snHiC
 channels:
   - bioconda
   - anaconda
