@@ -125,7 +125,7 @@ if (call_loops == True):
     else:
         loops_single = expand(os.path.join("09_Loop_detection_Mustache/{sample}/", ''.join(["{sample}_mapQ", str(config["mapQ_cutoff"]), "_{resolution}kb_loops.bedpe"])), sample = SAMPLENAMES, resolution=str(MAX_LOOPS_RESOLUTIONS[0]))
         if (eval(str(config["groups"]["perform_grouped_analyses"])) == True):
-            loops_group = expand(os.path.join("12_Grouped_analyses/E_Loop_detection_mustache/{group}/", ''.join(["{group}_mapQ", str(config["mapQ_cutoff"]), "_{merged_res}kb_loops.bedpe"])), group = groups, merged_res = str(MAX_LOOPS_RESOLUTIONS[0]))
+            loops_group = expand(os.path.join("12_Grouped_analyses/E_Loop_detection_Mustache/{group}/", ''.join(["{group}_mapQ", str(config["mapQ_cutoff"]), "_{merged_res}kb_loops.bedpe"])), group = groups, merged_res = str(MAX_LOOPS_RESOLUTIONS[0]))
         else:
             loops_group = []
 else:
@@ -335,21 +335,38 @@ rule B_multiQC_raw:
 # ----------------------------------------------------------------------------------------
 if not os.path.exists(''.join([re.sub(".gz", "", config["genome_fasta"], count=0, flags=0),".bwt.2bit.64"])):
     # ----------------------------------------------------------------------------------------
-    # Reads alignement
-    rule Cextra_generate_genome_index:
+    # Generate indexes
+    rule Cextra1_generate_bwa_genome_index:
         input:
             genome = ancient(config["genome_fasta"])
         output:
             genome_fai = ''.join([re.sub(".gz", "", config["genome_fasta"], count=0, flags=0),".bwt.2bit.64"])
         threads: 1
         benchmark:
-            "benchmarks/Cextra_generate_genome_index/Cextra_generate_genome_index.tsv"
+            "benchmarks/Cextra1_generate_bwa_genome_index/Cextra1_generate_bwa_genome_index.tsv"
         shell:
             """
             printf '\033[1;36mGenerating the genome index...\\n\033[0m'
             $CONDA_PREFIX/bin/bwa-mem2 index {input.genome}
-            samtools faidx {input.genome}
             printf '\033[1;36mGenome index done.\\n\033[0m'
+            """
+
+
+if not os.path.exists(''.join([re.sub(".gz", "", config["genome_fasta"], count=0, flags=0),".fai"])):
+    # ----------------------------------------------------------------------------------------
+    # Generate indexes
+    rule Cextra2_generate_genome_fai:
+        input:
+            genome = ancient(config["genome_fasta"])
+        output:
+            genome_fai_idx = ''.join([re.sub(".gz", "", config["genome_fasta"], count=0, flags=0),".fai"])
+        threads: 1
+        benchmark:
+            "benchmarks/Cextra2_generate_genome_fai/Cextra2_generate_genome_fai.tsv"
+        shell:
+            """
+            printf '\033[1;36mGenerating the genome index...\\n\033[0m'
+            samtools faidx {input.genome}
             """
 # ----------------------------------------------------------------------------------------
 
@@ -1439,9 +1456,9 @@ else:
             input:
                 cool_matrix_corrected = os.path.join("12_Grouped_analyses/C_summed_matrices_normalized_and_corrected/corrected_matrices/{GROUPS}/cool_format/", ''.join(["{GROUPS}_mapQ", str(config["mapQ_cutoff"]), "_{LOOPS_RESOLUTIONS}kb_normalized_corrected.cool"]))
             output:
-                loops_bedpe = os.path.join("12_Grouped_analyses/E_Loop_detection_mustache/{GROUPS}/", ''.join(["{GROUPS}_mapQ", str(config["mapQ_cutoff"]), "_{LOOPS_RESOLUTIONS}kb_loops.bedpe"]))
+                loops_bedpe = os.path.join("12_Grouped_analyses/E_Loop_detection_Mustache/{GROUPS}/", ''.join(["{GROUPS}_mapQ", str(config["mapQ_cutoff"]), "_{LOOPS_RESOLUTIONS}kb_loops.bedpe"]))
             params:
-                loops_dir = os.path.dirname("12_Grouped_analyses/E_Loop_detection_mustache/log/"),
+                loops_dir = os.path.dirname("12_Grouped_analyses/E_Loop_detection_Mustache/log/"),
                 sample = "{GROUPS}",
                 resolution = "{LOOPS_RESOLUTIONS}",
                 pThreshold = str(config["mustache_params"]["pThreshold"]),
@@ -1475,7 +1492,7 @@ else:
     else:
         shell("mkdir -p 09_Loop_detection_Mustache_notPerformed/")
         if (eval(str(config["groups"]["perform_grouped_analyses"])) == True):
-            shell("mkdir -p 12_Grouped_analyses/E_Loop_detection_mustache_notPerformed/")
+            shell("mkdir -p 12_Grouped_analyses/E_Loop_detection_Mustache_notPerformed/")
 
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
