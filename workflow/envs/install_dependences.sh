@@ -3,6 +3,7 @@
 $1/bin/git clone https://github.com/ay-lab/dcHiC $1/bin/dcHiC
 $1/bin/R CMD INSTALL $1/bin/dcHiC/packages/functionsdchic_1.0.tar.gz
 
+$1/bin/Rscript -e 'if (!require("devtools")) install.packages("devtools", repos="http://cran.rstudio.com/")'
 $1/bin/Rscript -e 'if (!require("GENOVA")) devtools::install_github("robinweide/GENOVA@v1.0.0-TheCartographer")'
 
 $1/bin/git clone https://github.com/akdemirlab/HiCPlotter $1/bin/HiCPlotter
