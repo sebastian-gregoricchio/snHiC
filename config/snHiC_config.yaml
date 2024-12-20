@@ -6,8 +6,8 @@
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ESSENTIAL PARAMETERS @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ### 0. General parameters  =========================================================================================================
 # 0.1. Project path and samples info
-runs_directory: "$HOME/snHiC_test/00_fastq_test"
-output_directory: "$HOME/snHiC_test"
+runs_directory: "$HOME/HiC_analyses/00_fastQ"
+output_directory: "$HOME/HiC_analyses/"
 
 # 0.2 Input file extensions
 fastq_extension: ".fastq.gz"
@@ -18,11 +18,11 @@ character_subsitution_dashes_and_points_sample_name: ""
 chr_filtering_string: "hap|gl|random|NC|hs|Y|M|mt"
 
 # 0.4 Genome
-genome_fasta: "$HOME/genomes/hg19.fa.gz"
+genome_fasta: "$HOME/hg19.fa"
 genome_assembly_name: "hg19"
 
 # 0.5 Interaction matrix resolution
-matrix_resolution: [10, 20, 50, 100, 1000]  # in kb, they must be multiples of the smallest, at least >1kb
+matrix_resolution: [20, 40, 100]  # in kb, they must be multiples of the smallest, at least >1kb
 generate_bam: False # generating bam files will largely increase the computing time
 
 # 0.6 Experimental design
@@ -31,16 +31,18 @@ restriction_enzyme: "MboI"
 # 0.7 Experimental design
 TAD_caller: "HiCexplorer" # or "GENOVA"
 
+
+#*** [OPTIONAL ANALYSES] ***
 # 0.8 Group analyses
 groups:
   perform_grouped_analyses: true
-  sample_metadata: "$HOME/snHIC_test/snHiC_test_data_metadata_groups.txt"
+  sample_metadata: "$HOME/HiC_analyses/samples_table.txt"
 
 # 0.9 Loop detection (10kb resolution suggested)
 loops:
   detect_loops: true
   loop_caller: "HiCexplorer" # or "mustache"
-  max_resolution_loops: 20 # kb
+  max_resolution_loops: 20
 
 # 0.10 Compartments detection
 compartments:
@@ -81,7 +83,7 @@ correction_method: "ICE"
 extra_findTAD_parameters: '--thresholdComparisons 0.01'
 
 
-### 7. Loop detection (HiCExplorer / Mustache) -------------------------------------------------------------------------------------
+### 7. Loop detection (HiCExplorer / Mustache)
 hicDetectLoops_params:
   maxLoopDistance: 2000000 #bp
   loop_windowSize: 10 #kb
@@ -94,13 +96,13 @@ mustache_params:
   extra_params: ''
 
 
-### 8. Differential contacts parameters (SELFISH) -------------------------------------------------------------------------------------
+### 8. Differential contacts parameters (SELFISH)
 selfish_params:
   qValue_threshold: 0.05
   extra_params: ''
 
 
-### 9. Call stripes (stripenn) --------------------------------------------------------------------------------------------------------
+### 9. Call stripes (stripenn)
 stripenn_params:
   max_stripes_resolution: 20
   pValue_threshold: 0.1
