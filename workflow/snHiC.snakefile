@@ -111,8 +111,10 @@ if (eval(str(config["loops"]["detect_loops"])) == True):
     if (len(MAX_LOOPS_RESOLUTIONS) > 0):
         call_loops = True
     else:
+        MAX_LOOPS_RESOLUTIONS = "10"
         call_loops = False
 else:
+     MAX_LOOPS_RESOLUTIONS = "10"
      call_loops = False
 
 if (call_loops == True):
